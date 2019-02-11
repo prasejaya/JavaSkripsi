@@ -1,0 +1,36 @@
+Alamine Aminotransferase,0,+Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 1
+Aspartate Aminotransferase,1,+Pada proses ke 1
+Aspartate Aminotransferase,-,1Pada proses ke 1
+Total Bilirubin,2,+Pada proses ke 1
+Total Bilirubin,2,-Pada proses ke 1
+Direct Bilirubin,3,+Pada proses ke 1
+Alkaline Phosphotase,3,-Pada proses ke 1
+Albumin,3,+Pada proses ke 1
+Albumin,3,-Pada proses ke 1
+Total Protiens,1,+Pada proses ke 1
+Total Protiens,1,-Pada proses ke 1
+Alkaline Phosphotase,1,+Pada proses ke 1
+Alkaline Phosphotase,1,-Pada proses ke 1
+Albumin and Global,1,+Pada proses ke 1
+Albumin and Global,-,1Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 1
+Alamine Aminotransferase,0,-Pada proses ke 1
+Aspartate Aminotransferase,1,+Pada proses ke 1
+Aspartate Aminotransferase,-,1Pada proses ke 1
+Total Bilirubin,2,+Pada proses ke 1
+Total Bilirubin,2,-Pada proses ke 1
+Direct Bilirubin,3,+Pada proses ke 1
+Alkaline Phosphotase,3,-Pada proses ke 1
+Albumin,3,+Pada proses ke 1
+Albumin,3,-Pada proses ke 1
+Total Protiens,5,+Pada proses ke 1
+Total Protiens,5,-Pada proses ke 1
+Total Protiens,5,-Pada proses ke 1
+Alkaline Phosphotase,6,+Pada proses ke 1
+Alkaline Phosphotase,6,-Pada proses ke 1
+Albumin and Global,1,+Pada proses ke 1
+Albumin and Global,-,1Pada proses ke 1
+Age,8,+Pada proses ke 1
+Age,8,-Pada proses ke 1
+Age,8,-Pada proses ke 1

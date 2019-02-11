@@ -1,0 +1,6 @@
+Coba restore db terbaru
+di form menu2.java
+ String path = "F:\\Andro\\Skripsi\\Akurasi.txt";
+ String path = "F:\\Andro\\Skripsi\\Rule.txt";
+
+Tolong disesuaikan pathnya agar keupload menjadi .txt
