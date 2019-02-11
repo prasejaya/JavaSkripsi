@@ -188,17 +188,20 @@ public class Menu2 extends javax.swing.JFrame {
     
     public Integer tetanProses(){
         java.sql.Connection conn=(Connection)Koneksi.configDB();
-        Integer tetan;
+        int tetan;
         tetan = 0;
+        double tetan2,ctetan,ctetan2,ctetan3;
+        ctetan2 = 0;
          Integer number;
           Menu2 nw = new Menu2();
           number = nw.numProses();
          try{
-            String sql = "select `value` as tetan from result where keytable = 'tetan' and prosespenelitian= "+number+""; 
+            String sql = "select `value` as tetan from result where keytable = 'tetan' and prosespenelitian = "+number+""; 
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){ 
               tetan = Integer.parseInt(res.getString(1));
+             
             }
        }catch (Exception e) {
         }finally{
@@ -1013,6 +1016,817 @@ public class Menu2 extends javax.swing.JFrame {
             }
         }
      }
+     
+     public void entropy3(){
+          java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number;
+          number = numProses();
+          if(number == 0){
+              number = 1;
+          }
+          try {
+          totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp3");
+              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp3");
+              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp3");
+              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp3");
+              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp3");
+              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp3");
+              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp3");
+              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp3");
+              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp3");
+              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp3");
+              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp3");
+              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp3");
+              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp3");
+              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp3");
+              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp3");
+              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp3");
+              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp3");
+              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp3");
+              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp3");
+              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp3");
+              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp3");
+              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp3");
+              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp3");
+              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp3");
+              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp3");
+              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp3");
+              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp3");
+              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp3");
+              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp3");
+              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp3");
+              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp3");
+              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp3");
+              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp3");
+              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp3");
+              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp3");
+              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp3");
+              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp3");
+              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp3");
+              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp3");
+              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp3");
+              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp3");
+              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp3");
+              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp3");
+              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp3");
+              
+              entropyklas = rumusEntropy(totalpi,totalni);
+              entropyanak = rumusEntropy(anakpositif,anaknegatif);
+              entropymuda = rumusEntropy(mudapositif,mudanegatif);
+              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
+              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
+              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
+              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
+              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
+              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
+              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
+              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
+              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
+              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
+              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
+              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
+              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
+              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
+              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
+              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
+              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
+              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
+              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
+              
+              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
+                      entropyanak,entropymuda,entropydewasa);
+              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
+                      entropytbnormal,entropytbabnormal);
+              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
+                      entropydbnormal,entropydbabnormal);
+              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
+                      entropyapnormal,entropyapabnormal);
+              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
+                      entropyaanormal,entropyaaabnormal);
+              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
+                      entropyasnormal,entropyasabnormal);
+              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
+                      entropytprendah,entropytpnormal,entropytptinggi);
+              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
+                      entropyabrendah,entropyabnormal,entropyabtinggi);
+              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
+                      entropyabgnormal,entropyabgabnormal);
+           
+            
+                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Age','"+gainage+"',"+number+")";
+                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
+                 pst2.execute();
+                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Total Bilirubin','"+gaintb+"',"+number+")";
+                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
+                 pst3.execute(); 
+                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Direct Bilirubin','"+gaindb+"',"+number+")";
+                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
+                 pst4.execute(); 
+                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Alkaline Phosphotase','"+gainap+"',"+number+")";
+                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
+                 pst5.execute(); 
+                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Alamine Aminotransferase','"+gainaa+"',"+number+")";
+                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
+                 pst6.execute(); 
+                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Aspartate Aminotransferase','"+gainas+"',"+number+")";
+                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
+                 pst7.execute(); 
+                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Total Protiens','"+gaintp+"',"+number+")";
+                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
+                 pst8.execute(); 
+                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Albumin','"+gainab+"',"+number+")";
+                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
+                 pst9.execute(); 
+                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 3','Albumin and Global','"+gainabg+"',"+number+")";
+                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
+                //System.out.println(sql);
+                pst10.execute();
+          }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+     public void entropy4(){
+          java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number;
+          number = numProses();
+          if(number == 0){
+              number = 1;
+          }
+          try {
+          totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp4");
+              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp4");
+              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp4");
+              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp4");
+              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp4");
+              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp4");
+              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp4");
+              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp4");
+              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp4");
+              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp4");
+              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp4");
+              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp4");
+              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp4");
+              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp4");
+              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp4");
+              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp4");
+              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp4");
+              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp4");
+              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp4");
+              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp4");
+              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp4");
+              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp4");
+              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp4");
+              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp4");
+              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp4");
+              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp4");
+              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp4");
+              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp4");
+              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp4");
+              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp4");
+              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp4");
+              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp4");
+              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp4");
+              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp4");
+              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp4");
+              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp4");
+              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp4");
+              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp4");
+              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp4");
+              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp4");
+              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp4");
+              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp4");
+              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp4");
+              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp4");
+              
+              entropyklas = rumusEntropy(totalpi,totalni);
+              entropyanak = rumusEntropy(anakpositif,anaknegatif);
+              entropymuda = rumusEntropy(mudapositif,mudanegatif);
+              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
+              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
+              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
+              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
+              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
+              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
+              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
+              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
+              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
+              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
+              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
+              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
+              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
+              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
+              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
+              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
+              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
+              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
+              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
+              
+              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
+                      entropyanak,entropymuda,entropydewasa);
+              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
+                      entropytbnormal,entropytbabnormal);
+              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
+                      entropydbnormal,entropydbabnormal);
+              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
+                      entropyapnormal,entropyapabnormal);
+              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
+                      entropyaanormal,entropyaaabnormal);
+              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
+                      entropyasnormal,entropyasabnormal);
+              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
+                      entropytprendah,entropytpnormal,entropytptinggi);
+              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
+                      entropyabrendah,entropyabnormal,entropyabtinggi);
+              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
+                      entropyabgnormal,entropyabgabnormal);
+           
+            
+                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Age','"+gainage+"',"+number+")";
+                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
+                 pst2.execute();
+                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Total Bilirubin','"+gaintb+"',"+number+")";
+                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
+                 pst3.execute(); 
+                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Direct Bilirubin','"+gaindb+"',"+number+")";
+                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
+                 pst4.execute(); 
+                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Alkaline Phosphotase','"+gainap+"',"+number+")";
+                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
+                 pst5.execute(); 
+                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Alamine Aminotransferase','"+gainaa+"',"+number+")";
+                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
+                 pst6.execute(); 
+                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Aspartate Aminotransferase','"+gainas+"',"+number+")";
+                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
+                 pst7.execute(); 
+                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Total Protiens','"+gaintp+"',"+number+")";
+                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
+                 pst8.execute(); 
+                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Albumin','"+gainab+"',"+number+")";
+                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
+                 pst9.execute(); 
+                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 4','Albumin and Global','"+gainabg+"',"+number+")";
+                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
+                //System.out.println(sql);
+                pst10.execute();
+          }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+     public void entropy5(){
+          java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number;
+          number = numProses();
+          if(number == 0){
+              number = 1;
+          }
+          try {
+          totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp5");
+              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp5");
+              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp5");
+              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp5");
+              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp5");
+              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp5");
+              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp5");
+              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp5");
+              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp5");
+              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp5");
+              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp5");
+              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp5");
+              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp5");
+              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp5");
+              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp5");
+              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp5");
+              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp5");
+              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp5");
+              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp5");
+              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp5");
+              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp5");
+              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp5");
+              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp5");
+              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp5");
+              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp5");
+              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp5");
+              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp5");
+              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp5");
+              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp5");
+              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp5");
+              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp5");
+              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp5");
+              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp5");
+              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp5");
+              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp5");
+              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp5");
+              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp5");
+              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp5");
+              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp5");
+              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp5");
+              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp5");
+              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp5");
+              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp5");
+              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp5");
+              
+              entropyklas = rumusEntropy(totalpi,totalni);
+              entropyanak = rumusEntropy(anakpositif,anaknegatif);
+              entropymuda = rumusEntropy(mudapositif,mudanegatif);
+              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
+              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
+              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
+              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
+              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
+              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
+              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
+              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
+              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
+              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
+              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
+              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
+              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
+              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
+              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
+              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
+              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
+              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
+              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
+              
+              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
+                      entropyanak,entropymuda,entropydewasa);
+              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
+                      entropytbnormal,entropytbabnormal);
+              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
+                      entropydbnormal,entropydbabnormal);
+              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
+                      entropyapnormal,entropyapabnormal);
+              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
+                      entropyaanormal,entropyaaabnormal);
+              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
+                      entropyasnormal,entropyasabnormal);
+              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
+                      entropytprendah,entropytpnormal,entropytptinggi);
+              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
+                      entropyabrendah,entropyabnormal,entropyabtinggi);
+              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
+                      entropyabgnormal,entropyabgabnormal);
+           
+            
+                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Age','"+gainage+"',"+number+")";
+                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
+                 pst2.execute();
+                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Total Bilirubin','"+gaintb+"',"+number+")";
+                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
+                 pst3.execute(); 
+                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Direct Bilirubin','"+gaindb+"',"+number+")";
+                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
+                 pst4.execute(); 
+                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Alkaline Phosphotase','"+gainap+"',"+number+")";
+                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
+                 pst5.execute(); 
+                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Alamine Aminotransferase','"+gainaa+"',"+number+")";
+                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
+                 pst6.execute(); 
+                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Aspartate Aminotransferase','"+gainas+"',"+number+")";
+                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
+                 pst7.execute(); 
+                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Total Protiens','"+gaintp+"',"+number+")";
+                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
+                 pst8.execute(); 
+                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Albumin','"+gainab+"',"+number+")";
+                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
+                 pst9.execute(); 
+                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 5','Albumin and Global','"+gainabg+"',"+number+")";
+                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
+                //System.out.println(sql);
+                pst10.execute();
+          }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+     public void entropy6(){
+          java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number;
+          number = numProses();
+          if(number == 0){
+              number = 1;
+          }
+          try {
+          totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp6");
+              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp6");
+              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp6");
+              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp6");
+              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp6");
+              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp6");
+              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp6");
+              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp6");
+              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp6");
+              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp6");
+              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp6");
+              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp6");
+              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp6");
+              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp6");
+              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp6");
+              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp6");
+              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp6");
+              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp6");
+              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp6");
+              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp6");
+              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp6");
+              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp6");
+              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp6");
+              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp6");
+              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp6");
+              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp6");
+              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp6");
+              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp6");
+              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp6");
+              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp6");
+              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp6");
+              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp6");
+              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp6");
+              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp6");
+              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp6");
+              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp6");
+              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp6");
+              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp6");
+              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp6");
+              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp6");
+              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp6");
+              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp6");
+              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp6");
+              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp6");
+              
+              entropyklas = rumusEntropy(totalpi,totalni);
+              entropyanak = rumusEntropy(anakpositif,anaknegatif);
+              entropymuda = rumusEntropy(mudapositif,mudanegatif);
+              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
+              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
+              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
+              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
+              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
+              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
+              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
+              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
+              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
+              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
+              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
+              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
+              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
+              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
+              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
+              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
+              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
+              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
+              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
+              
+              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
+                      entropyanak,entropymuda,entropydewasa);
+              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
+                      entropytbnormal,entropytbabnormal);
+              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
+                      entropydbnormal,entropydbabnormal);
+              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
+                      entropyapnormal,entropyapabnormal);
+              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
+                      entropyaanormal,entropyaaabnormal);
+              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
+                      entropyasnormal,entropyasabnormal);
+              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
+                      entropytprendah,entropytpnormal,entropytptinggi);
+              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
+                      entropyabrendah,entropyabnormal,entropyabtinggi);
+              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
+                      entropyabgnormal,entropyabgabnormal);
+           
+            
+                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Age','"+gainage+"',"+number+")";
+                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
+                 pst2.execute();
+                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Total Bilirubin','"+gaintb+"',"+number+")";
+                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
+                 pst3.execute(); 
+                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Direct Bilirubin','"+gaindb+"',"+number+")";
+                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
+                 pst4.execute(); 
+                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Alkaline Phosphotase','"+gainap+"',"+number+")";
+                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
+                 pst5.execute(); 
+                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Alamine Aminotransferase','"+gainaa+"',"+number+")";
+                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
+                 pst6.execute(); 
+                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Aspartate Aminotransferase','"+gainas+"',"+number+")";
+                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
+                 pst7.execute(); 
+                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Total Protiens','"+gaintp+"',"+number+")";
+                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
+                 pst8.execute(); 
+                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Albumin','"+gainab+"',"+number+")";
+                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
+                 pst9.execute(); 
+                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 6','Albumin and Global','"+gainabg+"',"+number+")";
+                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
+                //System.out.println(sql);
+                pst10.execute();
+          }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+     public void entropy7(){
+          java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number;
+          number = numProses();
+          if(number == 0){
+              number = 1;
+          }
+          try {
+          totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp7");
+              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp7");
+              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp7");
+              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp7");
+              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp7");
+              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp7");
+              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp7");
+              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp7");
+              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp7");
+              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp7");
+              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp7");
+              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp7");
+              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp7");
+              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp7");
+              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp7");
+              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp7");
+              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp7");
+              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp7");
+              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp7");
+              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp7");
+              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp7");
+              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp7");
+              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp7");
+              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp7");
+              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp7");
+              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp7");
+              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp7");
+              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp7");
+              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp7");
+              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp7");
+              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp7");
+              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp7");
+              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp7");
+              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp7");
+              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp7");
+              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp7");
+              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp7");
+              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp7");
+              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp7");
+              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp7");
+              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp7");
+              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp7");
+              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp7");
+              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp7");
+              
+              entropyklas = rumusEntropy(totalpi,totalni);
+              entropyanak = rumusEntropy(anakpositif,anaknegatif);
+              entropymuda = rumusEntropy(mudapositif,mudanegatif);
+              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
+              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
+              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
+              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
+              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
+              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
+              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
+              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
+              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
+              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
+              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
+              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
+              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
+              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
+              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
+              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
+              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
+              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
+              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
+              
+              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
+                      entropyanak,entropymuda,entropydewasa);
+              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
+                      entropytbnormal,entropytbabnormal);
+              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
+                      entropydbnormal,entropydbabnormal);
+              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
+                      entropyapnormal,entropyapabnormal);
+              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
+                      entropyaanormal,entropyaaabnormal);
+              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
+                      entropyasnormal,entropyasabnormal);
+              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
+                      entropytprendah,entropytpnormal,entropytptinggi);
+              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
+                      entropyabrendah,entropyabnormal,entropyabtinggi);
+              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
+                      entropyabgnormal,entropyabgabnormal);
+           
+            
+                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Age','"+gainage+"',"+number+")";
+                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
+                 pst2.execute();
+                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Total Bilirubin','"+gaintb+"',"+number+")";
+                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
+                 pst3.execute(); 
+                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Direct Bilirubin','"+gaindb+"',"+number+")";
+                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
+                 pst4.execute(); 
+                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Alkaline Phosphotase','"+gainap+"',"+number+")";
+                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
+                 pst5.execute(); 
+                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Alamine Aminotransferase','"+gainaa+"',"+number+")";
+                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
+                 pst6.execute(); 
+                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Aspartate Aminotransferase','"+gainas+"',"+number+")";
+                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
+                 pst7.execute(); 
+                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Total Protiens','"+gaintp+"',"+number+")";
+                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
+                 pst8.execute(); 
+                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Albumin','"+gainab+"',"+number+")";
+                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
+                 pst9.execute(); 
+                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 7','Albumin and Global','"+gainabg+"',"+number+")";
+                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
+                //System.out.println(sql);
+                pst10.execute();
+          }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+     public void entropy8(){
+          java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number;
+          number = numProses();
+          if(number == 0){
+              number = 1;
+          }
+          try {
+          totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp8");
+              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp8");
+              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp8");
+              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp8");
+              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp8");
+              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp8");
+              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp8");
+              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp8");
+              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp8");
+              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp8");
+              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp8");
+              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp8");
+              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp8");
+              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp8");
+              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp8");
+              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp8");
+              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp8");
+              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp8");
+              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp8");
+              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp8");
+              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp8");
+              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp8");
+              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp8");
+              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp8");
+              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp8");
+              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp8");
+              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp8");
+              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp8");
+              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp8");
+              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp8");
+              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp8");
+              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp8");
+              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp8");
+              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp8");
+              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp8");
+              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp8");
+              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp8");
+              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp8");
+              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp8");
+              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp8");
+              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp8");
+              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp8");
+              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp8");
+              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp8");
+              
+              entropyklas = rumusEntropy(totalpi,totalni);
+              entropyanak = rumusEntropy(anakpositif,anaknegatif);
+              entropymuda = rumusEntropy(mudapositif,mudanegatif);
+              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
+              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
+              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
+              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
+              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
+              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
+              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
+              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
+              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
+              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
+              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
+              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
+              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
+              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
+              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
+              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
+              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
+              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
+              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
+              
+              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
+                      entropyanak,entropymuda,entropydewasa);
+              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
+                      entropytbnormal,entropytbabnormal);
+              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
+                      entropydbnormal,entropydbabnormal);
+              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
+                      entropyapnormal,entropyapabnormal);
+              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
+                      entropyaanormal,entropyaaabnormal);
+              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
+                      entropyasnormal,entropyasabnormal);
+              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
+                      entropytprendah,entropytpnormal,entropytptinggi);
+              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
+                      entropyabrendah,entropyabnormal,entropyabtinggi);
+              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
+                      entropyabgnormal,entropyabgabnormal);
+           
+            
+                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Age','"+gainage+"',"+number+")";
+                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
+                 pst2.execute();
+                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Total Bilirubin','"+gaintb+"',"+number+")";
+                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
+                 pst3.execute(); 
+                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Direct Bilirubin','"+gaindb+"',"+number+")";
+                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
+                 pst4.execute(); 
+                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Alkaline Phosphotase','"+gainap+"',"+number+")";
+                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
+                 pst5.execute(); 
+                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Alamine Aminotransferase','"+gainaa+"',"+number+")";
+                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
+                 pst6.execute(); 
+                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Aspartate Aminotransferase','"+gainas+"',"+number+")";
+                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
+                 pst7.execute(); 
+                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Total Protiens','"+gaintp+"',"+number+")";
+                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
+                 pst8.execute(); 
+                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Albumin','"+gainab+"',"+number+")";
+                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
+                 pst9.execute(); 
+                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 8','Albumin and Global','"+gainabg+"',"+number+")";
+                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
+                //System.out.println(sql);
+                pst10.execute();
+          }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
      public double nodenPositif(String label,Connection conn,String label1){
             String data;
             double num = 0;
@@ -1347,7 +2161,7 @@ public class Menu2 extends javax.swing.JFrame {
                 pst2.execute();
                 System.out.println(sql2);
                 }
-             entropyNode1();
+             entropy1();
             }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
@@ -1705,122 +2519,7 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-              totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp1");
-              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp1");
-              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp1");
-              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp1");
-              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp1");
-              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp1");
-              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              
-              entropyklas = rumusEntropy(totalpi,totalni);
-              entropyanak = rumusEntropy(anakpositif,anaknegatif);
-              entropymuda = rumusEntropy(mudapositif,mudanegatif);
-              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
-              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
-              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
-              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
-              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
-              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
-              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
-              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
-              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
-              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
-              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
-              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
-              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
-              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
-              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
-              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
-              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
-              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
-              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
-              
-              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
-                      entropyanak,entropymuda,entropydewasa);
-              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
-                      entropytbnormal,entropytbabnormal);
-              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
-                      entropydbnormal,entropydbabnormal);
-              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
-                      entropyapnormal,entropyapabnormal);
-              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
-                      entropyaanormal,entropyaaabnormal);
-              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
-                      entropyasnormal,entropyasabnormal);
-              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
-                      entropytprendah,entropytpnormal,entropytptinggi);
-              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
-                      entropyabrendah,entropyabnormal,entropyabtinggi);
-              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
-                      entropyabgnormal,entropyabgabnormal);
-           
-            
-                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Age','"+gainage+"',"+number+")";
-                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
-                 pst2.execute();
-                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Bilirubin','"+gaintb+"',"+number+")";
-                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
-                 pst3.execute(); 
-                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Direct Bilirubin','"+gaindb+"',"+number+")";
-                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
-                 pst4.execute(); 
-                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alkaline Phosphotase','"+gainap+"',"+number+")";
-                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
-                 pst5.execute(); 
-                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alamine Aminotransferase','"+gainaa+"',"+number+")";
-                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
-                 pst6.execute(); 
-                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Aspartate Aminotransferase','"+gainas+"',"+number+")";
-                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
-                 pst7.execute(); 
-                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Protiens','"+gaintp+"',"+number+")";
-                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
-                 pst8.execute(); 
-                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin','"+gainab+"',"+number+")";
-                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
-                 pst9.execute(); 
-                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin and Global','"+gainabg+"',"+number+")";
-                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
-                //System.out.println(sql);
-                pst10.execute();
+              entropy1();
             }else if (res.getString(3).contains("Albumin")){
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
@@ -1840,15 +2539,6 @@ public class Menu2 extends javax.swing.JFrame {
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2 || cmembership3 > cmembership5 || cmembership4 > cmembership6){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin' and label='Normal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                }
                  Integer tetar;
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
@@ -1872,123 +2562,7 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-              totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp1");
-              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp1");
-              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp1");
-              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp1");
-              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp1");
-              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp1");
-              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              
-              entropyklas = rumusEntropy(totalpi,totalni);
-              entropyanak = rumusEntropy(anakpositif,anaknegatif);
-              entropymuda = rumusEntropy(mudapositif,mudanegatif);
-              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
-              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
-              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
-              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
-              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
-              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
-              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
-              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
-              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
-              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
-              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
-              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
-              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
-              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
-              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
-              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
-              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
-              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
-              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
-              
-              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
-                      entropyanak,entropymuda,entropydewasa);
-              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
-                      entropytbnormal,entropytbabnormal);
-              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
-                      entropydbnormal,entropydbabnormal);
-              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
-                      entropyapnormal,entropyapabnormal);
-              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
-                      entropyaanormal,entropyaaabnormal);
-              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
-                      entropyasnormal,entropyasabnormal);
-              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
-                      entropytprendah,entropytpnormal,entropytptinggi);
-              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
-                      entropyabrendah,entropyabnormal,entropyabtinggi);
-              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
-                      entropyabgnormal,entropyabgabnormal);
-           
-            
-                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Age','"+gainage+"',"+number+")";
-                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
-                 pst2.execute();
-                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Bilirubin','"+gaintb+"',"+number+")";
-                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
-                 pst3.execute(); 
-                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Direct Bilirubin','"+gaindb+"',"+number+")";
-                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
-                 pst4.execute(); 
-                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alkaline Phosphotase','"+gainap+"',"+number+")";
-                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
-                 pst5.execute(); 
-                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alamine Aminotransferase','"+gainaa+"',"+number+")";
-                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
-                 pst6.execute(); 
-                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Aspartate Aminotransferase','"+gainas+"',"+number+")";
-                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
-                 pst7.execute(); 
-                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Protiens','"+gaintp+"',"+number+")";
-                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
-                 pst8.execute(); 
-                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin','"+gainab+"',"+number+")";
-                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
-                 pst9.execute(); 
-                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin and Global','"+gainabg+"',"+number+")";
-                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
-                //System.out.println(sql);
-                pst10.execute();
-                
+                entropy1();
             }else if (res.getString(3).contains("Total Protiens")){
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
@@ -2006,7 +2580,6 @@ public class Menu2 extends javax.swing.JFrame {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
@@ -2054,13 +2627,36 @@ public class Menu2 extends javax.swing.JFrame {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                } else if (((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar == cmembership1) || (tetar == cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar == cmembership3) || (tetar == cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy1();
             } else if (res.getString(3).contains("Age")){
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
@@ -2080,6 +2676,7 @@ public class Menu2 extends javax.swing.JFrame {
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2093,7 +2690,6 @@ public class Menu2 extends javax.swing.JFrame {
             }
             }
           }catch (Exception e) {
-              
         }finally{
             try {
                 if (conn !=null)
@@ -4260,28 +4856,28 @@ public class Menu2 extends javax.swing.JFrame {
         }
      }
    
-     private void updatePrediksi(Connection conn,String table,String status){
-          try {
-            int num1 = 0;
-            
-            String sql = "select idprosesfold,value from fuzzy f"
-                    + "join prosesfold p on p.idprosesfold = f.idprosesfold "
-                    + "where type = 'Fuzzy' and label = 'Abnormal' and `key` = '"+table+"' and status = '"+status+"'";
-            
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-           while(res.next()){
-                if(Float.parseFloat(res.getString(2)) > 0.5f){
-                    updateData(conn,1,Integer.parseInt(res.getString(1)));
-                }else{
-                    updateData(conn,2,Integer.parseInt(res.getString(1)));
-                }
-            }
-          }catch (Exception e) {
-              
-        }
-         
-     }
+//     private void updatePrediksi(Connection conn,String table,String status){
+//          try {
+//            int num1 = 0;
+//            
+//            String sql = "select idprosesfold,value from fuzzy f"
+//                    + "join prosesfold p on p.idprosesfold = f.idprosesfold "
+//                    + "where type = 'Fuzzy' and label = 'Abnormal' and `key` = '"+table+"' and status = '"+status+"'";
+//            
+//            java.sql.Statement stm=conn.createStatement();
+//            java.sql.ResultSet res=stm.executeQuery(sql);
+//           while(res.next()){
+//                if(Float.parseFloat(res.getString(2)) > 0.5f){
+//                    updateData(conn,1,Integer.parseInt(res.getString(1)));
+//                }else{
+//                    updateData(conn,2,Integer.parseInt(res.getString(1)));
+//                }
+//            }
+//          }catch (Exception e) {
+//              
+//        }
+//         
+//     }
         private void akurasi(Connection conn, Integer fold){
             Integer kelas,prediksi;
             Float tp,tn,fp,fn,akurasidata,jumlah1,jumlah2;
