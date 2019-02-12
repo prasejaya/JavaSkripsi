@@ -322,22 +322,6 @@ public class Menu extends javax.swing.JFrame {
         }
      }
      
-     public void insertProsesFold(){
-          java.sql.Connection conn=(Connection)Koneksi.configDB();
-       try{
-           
-       } catch(Exception e){
-         JOptionPane.showMessageDialog(this,e.getMessage());
-       }finally{
-            try {
-                if (conn !=null)
-                    conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-     }
-     
      private void setupTabel1() {
         Object[][] data = new Object[listdata.size()][11];
         int i = 0;

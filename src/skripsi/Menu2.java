@@ -243,6 +243,29 @@ public class Menu2 extends javax.swing.JFrame {
          return tetar;
     }
     
+    public Integer dataMentah(String label1){
+        java.sql.Connection conn=(Connection)Koneksi.configDB();
+        int val;
+        val = 0;
+         try{
+            String sql = "select distinct count(idprosesfold) as valbahan from "+label1+""; 
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){ 
+              val = Integer.parseInt(res.getString(1));
+            }
+       }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+         return val;
+    }
+    
     
     private void exportRule(){
         Connection connect = null;
@@ -1827,6 +1850,141 @@ public class Menu2 extends javax.swing.JFrame {
         }
      }
      
+     public void entropy9(){
+          java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number;
+          number = numProses();
+          if(number == 0){
+              number = 1;
+          }
+          try {
+          totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp9");
+              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp9");
+              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp9");
+              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp9");
+              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp9");
+              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp9");
+              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp9");
+              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp9");
+              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp9");
+              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp9");
+              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp9");
+              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp9");
+              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp9");
+              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp9");
+              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp9");
+              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp9");
+              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp9");
+              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp9");
+              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp9");
+              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp9");
+              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp9");
+              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp9");
+              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp9");
+              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp9");
+              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp9");
+              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp9");
+              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp9");
+              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp9");
+              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp9");
+              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp9");
+              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp9");
+              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp9");
+              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp9");
+              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp9");
+              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp9");
+              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp9");
+              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp9");
+              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp9");
+              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp9");
+              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp9");
+              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp9");
+              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp9");
+              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp9");
+              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp9");
+              
+              entropyklas = rumusEntropy(totalpi,totalni);
+              entropyanak = rumusEntropy(anakpositif,anaknegatif);
+              entropymuda = rumusEntropy(mudapositif,mudanegatif);
+              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
+              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
+              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
+              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
+              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
+              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
+              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
+              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
+              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
+              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
+              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
+              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
+              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
+              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
+              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
+              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
+              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
+              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
+              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
+              
+              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
+                      entropyanak,entropymuda,entropydewasa);
+              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
+                      entropytbnormal,entropytbabnormal);
+              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
+                      entropydbnormal,entropydbabnormal);
+              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
+                      entropyapnormal,entropyapabnormal);
+              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
+                      entropyaanormal,entropyaaabnormal);
+              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
+                      entropyasnormal,entropyasabnormal);
+              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
+                      entropytprendah,entropytpnormal,entropytptinggi);
+              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
+                      entropyabrendah,entropyabnormal,entropyabtinggi);
+              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
+                      entropyabgnormal,entropyabgabnormal);
+           
+            
+                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Age','"+gainage+"',"+number+")";
+                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
+                 pst2.execute();
+                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Total Bilirubin','"+gaintb+"',"+number+")";
+                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
+                 pst3.execute(); 
+                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Direct Bilirubin','"+gaindb+"',"+number+")";
+                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
+                 pst4.execute(); 
+                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Alkaline Phosphotase','"+gainap+"',"+number+")";
+                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
+                 pst5.execute(); 
+                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Alamine Aminotransferase','"+gainaa+"',"+number+")";
+                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
+                 pst6.execute(); 
+                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Aspartate Aminotransferase','"+gainas+"',"+number+")";
+                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
+                 pst7.execute(); 
+                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Total Protiens','"+gaintp+"',"+number+")";
+                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
+                 pst8.execute(); 
+                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Albumin','"+gainab+"',"+number+")";
+                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
+                 pst9.execute(); 
+                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 9','Albumin and Global','"+gainabg+"',"+number+")";
+                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
+                //System.out.println(sql);
+                pst10.execute();
+          }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
      public double nodenPositif(String label,Connection conn,String label1){
             String data;
             double num = 0;
@@ -2062,7 +2220,7 @@ public class Menu2 extends javax.swing.JFrame {
           return positif;
      }
      
-     private double hitungc(Connection conn, String label1,String label2){
+     private double hitungc(Connection conn, String label1,String label2, String label3){
           Integer number;
           double angka2 = 0;
           Menu2 nw = new Menu2();
@@ -2071,7 +2229,7 @@ public class Menu2 extends javax.swing.JFrame {
               number = 1;
           }
          try {
-             String sql = " select sum(`value`) from fuzzy f " +
+             String sql = " select sum(`value`) from "+label3+" f " +
                          " join prosesfold p on p.idprosesfold = f.idprosesfold " +
                          " where p.dataset = 1 and f.`key` = '"+label1+"' and f.label = '"+label2+"' and f.`value` <> 0 and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
@@ -2085,7 +2243,7 @@ public class Menu2 extends javax.swing.JFrame {
          return angka2;
      }
      
-     private double hitungcn(Connection conn, String label1,String label2){
+     private double hitungcn(Connection conn, String label1,String label2, String label3){
           Integer number;
           double angka2 = 0;
           Menu2 nw = new Menu2();
@@ -2094,7 +2252,7 @@ public class Menu2 extends javax.swing.JFrame {
               number = 1;
           }
          try {
-             String sql = " select sum(`value`) from fuzzy f " +
+             String sql = " select sum(`value`) from "+label3+" f " +
                          " join prosesfold p on p.idprosesfold = f.idprosesfold " +
                          " where p.dataset = 2 and f.`key` = '"+label1+"' and f.label = '"+label2+"' and f.`value` <> 0 and prosespenelitian= "+number+"";
             java.sql.Statement stm=conn.createStatement();
@@ -2116,6 +2274,7 @@ public class Menu2 extends javax.swing.JFrame {
               number = 1;
           }
          try {
+            insertDataTemp1(); 
             String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
@@ -2125,20 +2284,20 @@ public class Menu2 extends javax.swing.JFrame {
                  String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();  
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp1");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp1");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
                 Integer tetar;
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
-                if(((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
                  java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
@@ -2150,12 +2309,12 @@ public class Menu2 extends javax.swing.JFrame {
                 pst2.execute();
                 System.out.println(sql2);
                 }
-                }else if (((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar == cmembership1) || (tetar == cmembership2))) {
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
                     String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
                  java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
                  pst2.execute();
                 System.out.println(sql2);
-                } else if (((tetar == cmembership3) || (tetar == cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
                  java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
                 pst2.execute();
@@ -2167,20 +2326,20 @@ public class Menu2 extends javax.swing.JFrame {
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp1");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp1");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
                 Integer tetar;
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
-                if(((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2191,152 +2350,37 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-                }else if (((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar == cmembership1) || (tetar == cmembership2))) {
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
                   String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 System.out.println(sql2);
-                } else if (((tetar == cmembership3) || (tetar == cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 System.out.println(sql2);
                 }
-              totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp1");
-              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp1");
-              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp1");
-              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp1");
-              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp1");
-              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp1");
-              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              
-              entropyklas = rumusEntropy(totalpi,totalni);
-              entropyanak = rumusEntropy(anakpositif,anaknegatif);
-              entropymuda = rumusEntropy(mudapositif,mudanegatif);
-              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
-              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
-              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
-              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
-              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
-              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
-              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
-              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
-              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
-              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
-              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
-              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
-              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
-              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
-              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
-              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
-              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
-              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
-              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
-              
-              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
-                      entropyanak,entropymuda,entropydewasa);
-              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
-                      entropytbnormal,entropytbabnormal);
-              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
-                      entropydbnormal,entropydbabnormal);
-              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
-                      entropyapnormal,entropyapabnormal);
-              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
-                      entropyaanormal,entropyaaabnormal);
-              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
-                      entropyasnormal,entropyasabnormal);
-              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
-                      entropytprendah,entropytpnormal,entropytptinggi);
-              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
-                      entropyabrendah,entropyabnormal,entropyabtinggi);
-              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
-                      entropyabgnormal,entropyabgabnormal);
-           
-            
-                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Age','"+gainage+"',"+number+")";
-                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
-                 pst2.execute();
-                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Bilirubin','"+gaintb+"',"+number+")";
-                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
-                 pst3.execute(); 
-                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Direct Bilirubin','"+gaindb+"',"+number+")";
-                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
-                 pst4.execute(); 
-                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alkaline Phosphotase','"+gainap+"',"+number+")";
-                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
-                 pst5.execute(); 
-                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alamine Aminotransferase','"+gainaa+"',"+number+")";
-                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
-                 pst6.execute(); 
-                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Aspartate Aminotransferase','"+gainas+"',"+number+")";
-                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
-                 pst7.execute(); 
-                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Protiens','"+gaintp+"',"+number+")";
-                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
-                 pst8.execute(); 
-                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin','"+gainab+"',"+number+")";
-                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
-                 pst9.execute(); 
-                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin and Global','"+gainabg+"',"+number+")";
-                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
-                //System.out.println(sql);
-                pst10.execute();
+             entropy1();
             }else if (res.getString(3).contains("Total Bilirubin")){
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp1");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp1");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
                 Integer tetar;
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
-                if(((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2356,150 +2400,35 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-                }else if (((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar == cmembership1) || (tetar == cmembership2))) {
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
                   String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 System.out.println(sql2);
-                } else if (((tetar == cmembership3) || (tetar == cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-              totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp1");
-              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp1");
-              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp1");
-              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp1");
-              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp1");
-              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp1");
-              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              
-              entropyklas = rumusEntropy(totalpi,totalni);
-              entropyanak = rumusEntropy(anakpositif,anaknegatif);
-              entropymuda = rumusEntropy(mudapositif,mudanegatif);
-              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
-              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
-              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
-              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
-              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
-              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
-              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
-              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
-              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
-              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
-              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
-              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
-              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
-              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
-              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
-              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
-              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
-              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
-              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
-              
-              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
-                      entropyanak,entropymuda,entropydewasa);
-              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
-                      entropytbnormal,entropytbabnormal);
-              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
-                      entropydbnormal,entropydbabnormal);
-              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
-                      entropyapnormal,entropyapabnormal);
-              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
-                      entropyaanormal,entropyaaabnormal);
-              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
-                      entropyasnormal,entropyasabnormal);
-              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
-                      entropytprendah,entropytpnormal,entropytptinggi);
-              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
-                      entropyabrendah,entropyabnormal,entropyabtinggi);
-              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
-                      entropyabgnormal,entropyabgabnormal);
-           
-            
-                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Age','"+gainage+"',"+number+")";
-                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
-                 pst2.execute();
-                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Bilirubin','"+gaintb+"',"+number+")";
-                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
-                 pst3.execute(); 
-                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Direct Bilirubin','"+gaindb+"',"+number+")";
-                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
-                 pst4.execute(); 
-                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alkaline Phosphotase','"+gainap+"',"+number+")";
-                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
-                 pst5.execute(); 
-                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alamine Aminotransferase','"+gainaa+"',"+number+")";
-                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
-                 pst6.execute(); 
-                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Aspartate Aminotransferase','"+gainas+"',"+number+")";
-                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
-                 pst7.execute(); 
-                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Protiens','"+gaintp+"',"+number+")";
-                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
-                 pst8.execute(); 
-                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin','"+gainab+"',"+number+")";
-                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
-                 pst9.execute(); 
-                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin and Global','"+gainabg+"',"+number+")";
-                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
-                //System.out.println(sql);
-                pst10.execute();
+             entropy1();
             }else if (res.getString(3).contains("Albumin and Global")){
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp1");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp1");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
                 Integer tetar;
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
-                if(((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2509,12 +2438,12 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-                } else if (((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar == cmembership1) || (tetar == cmembership2))) {
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
                   String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 System.out.println(sql2);
-                } else if (((tetar == cmembership3) || (tetar == cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
@@ -2524,25 +2453,25 @@ public class Menu2 extends javax.swing.JFrame {
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp1");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Albumin","Normal","Temp1");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp1");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp1");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
                  Integer tetar;
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
-                if(((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2552,12 +2481,12 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-                } else if (((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar == cmembership1) || (tetar == cmembership2))) {
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
                   String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 System.out.println(sql2);
-                } else if (((tetar == cmembership3) || (tetar == cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
@@ -2567,16 +2496,20 @@ public class Menu2 extends javax.swing.JFrame {
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp1");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp1");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2586,20 +2519,36 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy1();
             }else if (res.getString(3).contains("Direct Bilirubin")){
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp1");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp1");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2610,20 +2559,35 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy1();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp1");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp1");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2633,25 +2597,12 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-                Integer tetar;
-                Menu2 tr = new Menu2();
-                tetar = tr.tetarProses();
-                if(((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                }
-                } else if (((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar == cmembership1) || (tetar == cmembership2))) {
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
                   String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 System.out.println(sql2);
-                } else if (((tetar == cmembership3) || (tetar == cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
@@ -2661,22 +2612,25 @@ public class Menu2 extends javax.swing.JFrame {
                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp1");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp1");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp1");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp1");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp1");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp1");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
-                
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
@@ -2687,7 +2641,18 @@ public class Menu2 extends javax.swing.JFrame {
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
             }
+               entropy1();
             }
           }catch (Exception e) {
         }finally{
@@ -2702,375 +2667,398 @@ public class Menu2 extends javax.swing.JFrame {
      
      private void nodeDua(){
          java.sql.Connection conn=(Connection)Koneksi.configDB();
-           Integer number;
+           Integer number,val,tetan;
+           double ctetan,ctetan1,val1;
           number = numProses();
           if(number == 0){
               number = 1;
           }
+           insertDataTemp2();
+          val = dataMentah("Temp2");
+          tetan = tetanProses();
+          ctetan = tetan/100;
+          ctetan1 = val * ctetan;
+          val1 = val / 10;
           try {
-            String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 1,1";
+           if(val >= ctetan1){
+            String sql = "select * from result where type = 'Gain 1' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+           System.out.println(sql);
             while(res.next()){
                if(res.getString(3).contains("Alamine Aminotransferase")){
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Alamine Aminotransferase,1,+','0.5',"+number+"),('Node 1','Alamine Aminotransferase,1,+','0.5',"+number+")";
+                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                pst.execute();  
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp2");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp2");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
-                ctotal2 = c2positif + c2negatif;
-                cmembership3 = (c2positif / ctotal2) * 100;
-                cmembership4 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                }
-            }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Aspartate Aminotransferase,1,+','0.5',"+number+"),('Node 1','Aspartate Aminotransferase,-,1','0.5',"+number+")";
-                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                System.out.println(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
-                ctotal1 = c1positif + c1negatif;
-                cmembership1 = (c1positif / ctotal1) * 100;
-                cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
-                ctotal2 = c2positif + c2negatif;
-                cmembership3 = (c2positif / ctotal2) * 100;
-                cmembership4 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
-                pst1.execute();
-                }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                }
-            }else if (res.getString(3).contains("Total Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Total Bilirubin,1,+','0.5',"+number+"),('Node 1','Total Bilirubin,1,-','0.5',"+number+")";
-               java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
-                ctotal1 = c1positif + c1negatif;
-                cmembership1 = (c1positif / ctotal1) * 100;
-                cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp2");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp2");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
                 Integer tetar;
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
-                
-                if(((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
-                pst1.execute();
-                }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                }
-                }
-                else if (((tetar > cmembership3) || (tetar > cmembership4)) && ((tetar == cmembership1) || (tetar == cmembership2))) {
-                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
-                pst1.execute();
-                System.out.println(sql2);
-                } else if (((tetar == cmembership3) || (tetar == cmembership4)) && ((tetar > cmembership1) || (tetar > cmembership2))) {
-                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
-                System.out.println(sql2);
-                }
-              totalpi = hitungEntropyAllPositifTemp(conn,number,"Temp1");
-              totalni = hitungEntropyAllNegatifTemp(conn,number,"Temp1");
-              anakpositif = hitungEntropyPositifTemp(conn, "Anak", "Age",number,"Temp1");
-              anaknegatif = hitungEntropyNegatifTemp(conn, "Anak", "Age",number,"Temp1");
-              mudapositif = hitungEntropyPositifTemp(conn, "Muda", "Age",number,"Temp1");
-              mudanegatif = hitungEntropyNegatifTemp(conn, "Muda", "Age",number,"Temp1");
-              dewasapositif = hitungEntropyPositifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              dewasanegatif = hitungEntropyNegatifTemp(conn, "Dewasa", "Age",number,"Temp1");
-              tbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Bilirubin",number,"Temp1");
-              tbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              tbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Total Bilirubin",number,"Temp1");
-              dbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              dbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Direct Bilirubin",number,"Temp1");
-              apnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalnegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              apabnormalpositif = hitungEntropyPositifTemp(conn, "Tinggi", "Alkaline Phosphotase",number,"Temp1");
-              aanormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aanormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              aaabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Alamine Aminotransferase",number,"Temp1");
-              asnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              asabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Aspartate Aminotransferase",number,"Temp1");
-              tprendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tprendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Total Protiens",number,"Temp1");
-              tpnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tpnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Total Protiens",number,"Temp1");
-              tptinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              tptingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Total Protiens",number,"Temp1");
-              abrendahpositif = hitungEntropyPositifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abrendahnegatif = hitungEntropyNegatifTemp(conn, "Rendah", "Albumin",number,"Temp1");
-              abnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin",number,"Temp1");
-              abtinggipositif = hitungEntropyPositifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              abtingginegatif = hitungEntropyNegatifTemp(conn, "Tinggi", "Albumin",number,"Temp1");
-              agbnormalpositif = hitungEntropyPositifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbnormalnegatif = hitungEntropyNegatifTemp(conn, "Normal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalpositif = hitungEntropyPositifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              agbabnormalnegatif = hitungEntropyNegatifTemp(conn, "Abnormal", "Albumin and Global Ratio",number,"Temp1");
-              
-              entropyklas = rumusEntropy(totalpi,totalni);
-              entropyanak = rumusEntropy(anakpositif,anaknegatif);
-              entropymuda = rumusEntropy(mudapositif,mudanegatif);
-              entropydewasa = rumusEntropy(dewasapositif,mudanegatif);
-              entropytbnormal = rumusEntropy(tbnormalpositif,tbnormalnegatif);
-              entropytbabnormal = rumusEntropy(tbabnormalpositif,tbabnormalnegatif);
-              entropydbnormal = rumusEntropy(dbnormalpositif,dbnormalnegatif);
-              entropydbabnormal = rumusEntropy(dbabnormalpositif,dbabnormalnegatif);
-              entropyapnormal = rumusEntropy(apnormalpositif,apnormalnegatif);
-              entropyapabnormal = rumusEntropy(apabnormalpositif,apabnormalnegatif);
-              entropyaaabnormal = rumusEntropy(aaabnormalpositif,aaabnormalnegatif);
-              entropyaanormal = rumusEntropy(aanormalpositif,aanormalnegatif);
-              entropyasnormal = rumusEntropy(asnormalpositif,asnormalnegatif);
-              entropyasabnormal = rumusEntropy(asabnormalpositif,asabnormalnegatif);
-              entropytpnormal = rumusEntropy(tpnormalpositif,tpnormalnegatif);
-              entropytprendah = rumusEntropy(tprendahpositif,tprendahnegatif);
-              entropytptinggi = rumusEntropy(tptinggipositif,tptingginegatif);
-              entropyabnormal = rumusEntropy(abnormalpositif,abnormalnegatif);
-              entropyabrendah = rumusEntropy(abrendahpositif,abrendahnegatif);
-              entropyabtinggi = rumusEntropy(abtinggipositif,abtingginegatif);
-              entropyabgabnormal = rumusEntropy(agbnormalpositif,agbnormalnegatif);
-              entropyabgnormal = rumusEntropy(agbabnormalpositif,agbabnormalnegatif);
-              
-              gainage= rumusGain1(anakpositif,anaknegatif,mudapositif,mudanegatif,dewasapositif,dewasanegatif,entropyklas,
-                      entropyanak,entropymuda,entropydewasa);
-              gaintb = rumusGain2(tbnormalpositif,tbnormalnegatif,tbabnormalpositif,tbabnormalnegatif,entropyklas,
-                      entropytbnormal,entropytbabnormal);
-              gaindb = rumusGain2(dbnormalpositif,dbnormalnegatif,dbabnormalpositif,dbabnormalnegatif,entropyklas,
-                      entropydbnormal,entropydbabnormal);
-              gainap = rumusGain2(apnormalpositif,apnormalnegatif,apabnormalpositif,apabnormalnegatif,entropyklas,
-                      entropyapnormal,entropyapabnormal);
-              gainaa = rumusGain2(aanormalpositif,aanormalnegatif,aaabnormalpositif,aaabnormalnegatif,entropyklas,
-                      entropyaanormal,entropyaaabnormal);
-              gainas = rumusGain2(asnormalpositif,asnormalnegatif,asabnormalpositif,asabnormalnegatif,entropyklas,
-                      entropyasnormal,entropyasabnormal);
-              gaintp =rumusGain1(tprendahpositif,tprendahnegatif,tpnormalpositif,tpnormalnegatif,tptinggipositif,tptingginegatif,entropyklas,
-                      entropytprendah,entropytpnormal,entropytptinggi);
-              gainab = rumusGain1(abrendahpositif,abrendahnegatif,abnormalpositif,abnormalnegatif,abtinggipositif,abtingginegatif,entropyklas,
-                      entropyabrendah,entropyabnormal,entropyabtinggi);
-              gainabg = rumusGain2(agbnormalpositif,agbnormalnegatif,agbabnormalpositif,agbabnormalnegatif,entropyklas,
-                      entropyabgnormal,entropyabgabnormal);
-           
-            
-                String sql1 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Age','"+gainage+"',"+number+")";
-                java.sql.PreparedStatement pst2=conn.prepareStatement(sql1);
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
                  pst2.execute();
-                String sql3 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Bilirubin','"+gaintb+"',"+number+")";
-                java.sql.PreparedStatement pst3=conn.prepareStatement(sql3);
-                 pst3.execute(); 
-                String sql4 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Direct Bilirubin','"+gaindb+"',"+number+")";
-                java.sql.PreparedStatement pst4=conn.prepareStatement(sql4);
-                 pst4.execute(); 
-                String sql5 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alkaline Phosphotase','"+gainap+"',"+number+")";
-                 java.sql.PreparedStatement pst5=conn.prepareStatement(sql5);
-                 pst5.execute(); 
-                String sql6 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Alamine Aminotransferase','"+gainaa+"',"+number+")";
-                java.sql.PreparedStatement pst6=conn.prepareStatement(sql6);
-                 pst6.execute(); 
-                String sql7 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Aspartate Aminotransferase','"+gainas+"',"+number+")";
-                java.sql.PreparedStatement pst7=conn.prepareStatement(sql7);
-                 pst7.execute(); 
-                String sql8 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Total Protiens','"+gaintp+"',"+number+")";
-                java.sql.PreparedStatement pst8=conn.prepareStatement(sql8);
-                 pst8.execute(); 
-                String sql9 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin','"+gainab+"',"+number+")";
-                java.sql.PreparedStatement pst9=conn.prepareStatement(sql9);
-                 pst9.execute(); 
-                String sql10 =  "Insert into result(type,keytable,`value`,prosespenelitian) values ('Gain 1','Albumin and Global','"+gainabg+"',"+number+")";
-                java.sql.PreparedStatement pst10=conn.prepareStatement(sql10);
-                //System.out.println(sql);
-                pst10.execute();
-            }else if (res.getString(3).contains("Albumin and Global")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Albumin and Global,1,+','0.5',"+number+"),('Node 1','Albumin and Global,-,1','0.5',"+number+")";
+                System.out.println(sql2);
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+             entropy2();
+            }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
+                System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp2");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp2");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp2");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp2");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
-            }else if (res.getString(3).contains("Albumin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Albumin,1,+','0.5',"+number+"),('Node 1','Albumin,1,-','0.5',"+number+"),('Node','Albumin,1,-','0.5',"+number+")";
-                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+             entropy2();
+            }else if (res.getString(3).contains("Total Bilirubin")){
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
+               java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp2");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp2");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp2");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp2");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+             entropy2();
+            }else if (res.getString(3).contains("Albumin and Global")){
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
+                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
+                pst.execute();
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp2");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp2");
+                ctotal1 = c1positif + c1negatif;
+                cmembership1 = (c1positif / ctotal1) * 100;
+                cmembership2 = (c1negatif / ctotal1) * 100;
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp2");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp2");
+                ctotal2 = c2positif + c2negatif;
+                cmembership3 = (c2positif / ctotal2) * 100;
+                cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+              entropy2();
+            }else if (res.getString(3).contains("Albumin")){
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
+                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
+                pst.execute();
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp2");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp2");
+                ctotal1 = c1positif + c1negatif;
+                cmembership1 = (c1positif / ctotal1) * 100;
+                cmembership2 = (c1negatif / ctotal1) * 100;
+                c2positif = hitungc(conn,"Albumin","Normal","Temp2");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp2");
+                ctotal2 = c2positif + c2negatif;
+                cmembership3 = (c2positif / ctotal2) * 100;
+                cmembership4 = (c2negatif / ctotal1) * 100;
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp2");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp2");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2 || cmembership3 > cmembership5 || cmembership4 > cmembership6){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
+                 Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy2();
             }else if (res.getString(3).contains("Total Protiens")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Total Protiens,1,+','0.5',"+number+"),('Node 1','Total Protiens,1,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp2");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp2");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp2");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp2");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy2();
             }else if (res.getString(3).contains("Direct Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Direct Bilirubin,1,+','0.5',"+number+"),('Node 1','Alkaline Phosphotase,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp2");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp2");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp2");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp2");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy2();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Alkaline Phosphotase,1,+','0.5',"+number+"),('Node 1','Alkaline Phosphotase,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp2");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp2");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp2");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp2");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy2();
             } else if (res.getString(3).contains("Age")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Age,1,+','0.5',"+number+"),('Node 1','Age,1,-','0.5',"+number+"),('Node 1','Age,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp2");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp2");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp2");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp2");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp2");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp2");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+            }
+               entropy2();
             }
             }
           }catch (Exception e) {
@@ -3085,243 +3073,400 @@ public class Menu2 extends javax.swing.JFrame {
         }
      }
      
-     private void nodeTiga(){
-           java.sql.Connection conn=(Connection)Koneksi.configDB();
-           Integer number;
+    private void nodeTiga(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number,val,tetan;
+           double ctetan,ctetan1,val1;
           number = numProses();
           if(number == 0){
               number = 1;
           }
+          insertDataTemp3(); 
+          val = dataMentah("Temp3");
+          tetan = tetanProses();
+          ctetan = tetan/100;
+          ctetan1 = val * ctetan;
+          val1 = val / 10;
           try {
-               String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 2,1";
+           if(val >= ctetan1){
+            String sql = "select * from result where type = 'Gain 2' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+           System.out.println(sql);
             while(res.next()){
                if(res.getString(3).contains("Alamine Aminotransferase")){
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Alamine Aminotransferase,2,+','0.5',"+number+"),('Node 2','Alamine Aminotransferase,2,+','0.5',"+number+")";
+                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                pst.execute();  
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp3");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp3");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+             entropy3();
             }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Aspartate Aminotransferase,2,+','0.5',"+number+"),('Node 2','Aspartate Aminotransferase,-,2','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp3");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp3");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+             entropy3();
             }else if (res.getString(3).contains("Total Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Total Bilirubin,2,+','0.5',"+number+"),('Node 2','Total Bilirubin,2,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp3");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp3");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+             entropy3();
             }else if (res.getString(3).contains("Albumin and Global")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Albumin and Global,2,+','0.5',"+number+"),('Node 2','Albumin and Global,2,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp3");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp3");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+              entropy3();
             }else if (res.getString(3).contains("Albumin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Albumin,2,+','0.5',"+number+"),('Node 2','Albumin,2,-','0.5',"+number+"),('Node','Albumin,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp3");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Albumin","Normal","Temp3");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp3");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp3");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2 || cmembership3 > cmembership5 || cmembership4 > cmembership6){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
+                 Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy3();
             }else if (res.getString(3).contains("Total Protiens")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Total Protiens,2,+','0.5',"+number+"),('Node 2','Total Protiens,2,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp3");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp3");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy3();
             }else if (res.getString(3).contains("Direct Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Direct Bilirubin,2,+','0.5',"+number+"),('Node 2','Alkaline Phosphotase,2,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp3");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp3");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy3();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Alkaline Phosphotase,2,+','0.5',"+number+"),('Node 2','Alkaline Phosphotase,2,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp3");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp3");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy3();
             } else if (res.getString(3).contains("Age")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 2','Age,2,+','0.5',"+number+"),('Node 2','Age,2,-','0.5',"+number+"),('Node 2','Age,2,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp3");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp3");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp3");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp3");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp3");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp3");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+            }
+               entropy3();
             }
             }
           }catch (Exception e) {
@@ -3338,244 +3483,399 @@ public class Menu2 extends javax.swing.JFrame {
      
      
      private void nodeEmpat(){
-          java.sql.Connection conn=(Connection)Koneksi.configDB();
-           Integer number;
-           
-          Menu2 nw = new Menu2();
-          number = nw.numProses();
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number,val,tetan;
+           double ctetan,ctetan1,val1;
+          number = numProses();
           if(number == 0){
               number = 1;
           }
+          insertDataTemp4(); 
+          val = dataMentah("Temp4");
+          tetan = tetanProses();
+          ctetan = tetan/100;
+          ctetan1 = val * ctetan;
+          val1 = val / 10;
           try {
-               String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 3,1";
+           if(val >= ctetan1){
+            String sql = "select * from result where type = 'Gain 3' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+           System.out.println(sql);
             while(res.next()){
                if(res.getString(3).contains("Alamine Aminotransferase")){
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Alamine Aminotransferase,3,+','0.5',"+number+"),('Node 3','Alamine Aminotransferase,3,+','0.5',"+number+")";
+                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                pst.execute();  
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp4");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp4");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+             entropy4();
             }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Aspartate Aminotransferase,3,+','0.5',"+number+"),('Node 3','Aspartate Aminotransferase,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp4");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp4");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+             entropy4();
             }else if (res.getString(3).contains("Total Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Total Bilirubin,3,+','0.5',"+number+"),('Node 3','Total Bilirubin,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp4");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp4");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+             entropy4();
             }else if (res.getString(3).contains("Albumin and Global")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Albumin and Global,3,+','0.5',"+number+"),('Node 3','Albumin and Global,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp4");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp4");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+              entropy4();
             }else if (res.getString(3).contains("Albumin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Albumin,3,+','0.5',"+number+"),('Node 3','Albumin,3,-','0.5',"+number+"),('Node','Albumin,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp4");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Albumin","Normal","Temp4");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp4");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp4");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2 || cmembership3 > cmembership5 || cmembership4 > cmembership6){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
+                 Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy4();
             }else if (res.getString(3).contains("Total Protiens")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Total Protiens,3,+','0.5',"+number+"),('Node 3','Total Protiens,3,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp4");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp4");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy4();
             }else if (res.getString(3).contains("Direct Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Direct Bilirubin,3,+','0.5',"+number+"),('Node 3','Alkaline Phosphotase,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp4");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp4");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy4();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Alkaline Phosphotase,3,+','0.5',"+number+"),('Node 3','Alkaline Phosphotase,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp4");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp4");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy4();
             } else if (res.getString(3).contains("Age")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Age,3,+','0.5',"+number+"),('Node 3','Age,3,-','0.5',"+number+"),('Node 3','Age,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp4");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp4");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp4");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp4");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp4");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp4");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+            }
+               entropy4();
             }
             }
           }catch (Exception e) {
@@ -3590,245 +3890,400 @@ public class Menu2 extends javax.swing.JFrame {
         }
      }
      
-     private void nodeLima(){
-          java.sql.Connection conn=(Connection)Koneksi.configDB();
-           Integer number;
-           
-          Menu2 nw = new Menu2();
-          number = nw.numProses();
+    private void nodeLima(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number,val,tetan;
+           double ctetan,ctetan1,val1;
+          number = numProses();
           if(number == 0){
               number = 1;
           }
-           try {
-               String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 4,1";
+          insertDataTemp5(); 
+          val = dataMentah("Temp5");
+          tetan = tetanProses();
+          ctetan = tetan/100;
+          ctetan1 = val * ctetan;
+          val1 = val / 10;
+          try {
+           if(val >= ctetan1){
+            String sql = "select * from result where type = 'Gain 4' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+           System.out.println(sql);
             while(res.next()){
                if(res.getString(3).contains("Alamine Aminotransferase")){
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 4','Alamine Aminotransferase,4,+','0.5',"+number+"),('Node 4','Alamine Aminotransferase,4,-','0.5',"+number+")";
+                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                pst.execute();  
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp5");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp5");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+             entropy5();
             }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 4','Aspartate Aminotransferase,4,+','0.5',"+number+"),('Node 4','Aspartate Aminotransferase,4,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp5");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp5");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+             entropy5();
             }else if (res.getString(3).contains("Total Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 4','Total Bilirubin,3,+','0.5',"+number+"),('Node 1','Total Bilirubin,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp5");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp5");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+             entropy5();
             }else if (res.getString(3).contains("Albumin and Global")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 4','Albumin and Global,4,+','0.5',"+number+"),('Node 4','Albumin and Global,4,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp5");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp5");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+              entropy5();
             }else if (res.getString(3).contains("Albumin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Albumin,3,+','0.5',"+number+"),('Node 1','Albumin,3,-','0.5',"+number+"),('Node','Albumin,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp5");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Albumin","Normal","Temp5");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp5");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp5");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2 || cmembership3 > cmembership5 || cmembership4 > cmembership6){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
+                 Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy5();
             }else if (res.getString(3).contains("Total Protiens")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Total Protiens,3,+','0.5',"+number+"),('Node 3','Total Protiens,3,-','0.5',"+number+"),('Node 3','Total Protiens,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp5");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp5");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy5();
             }else if (res.getString(3).contains("Direct Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Direct Bilirubin,3,+','0.5',"+number+"),('Node 3','Alkaline Phosphotase,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp5");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp5");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy5();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Alkaline Phosphotase,3,+','0.5',"+number+"),('Node 3','Alkaline Phosphotase,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp5");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp5");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy5();
             } else if (res.getString(3).contains("Age")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 3','Age,3,+','0.5',"+number+"),('Node 3','Age,3,-','0.5',"+number+"),('Node 3','Age,3,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp5");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp5");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp5");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp5");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp5");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp5");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+            }
+               entropy5();
             }
             }
           }catch (Exception e) {
@@ -3843,246 +4298,400 @@ public class Menu2 extends javax.swing.JFrame {
         }
      }
      
-     private void nodeEnam(){
-          java.sql.Connection conn=(Connection)Koneksi.configDB();
-           Integer number;
-           
-          Menu2 nw = new Menu2();
-          number = nw.numProses();
+    private void nodeEnam(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number,val,tetan;
+           double ctetan,ctetan1,val1;
+          number = numProses();
           if(number == 0){
               number = 1;
           }
+          val = dataMentah("Temp7");
+          tetan = tetanProses();
+          ctetan = tetan/100;
+          ctetan1 = val * ctetan;
+          val1 = val / 10;
           try {
-               String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 5,1";
+           insertDataTemp6(); 
+           if(val >= ctetan1){
+            String sql = "select * from result where type = 'Gain 5' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+           System.out.println(sql);
             while(res.next()){
                if(res.getString(3).contains("Alamine Aminotransferase")){
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Alamine Aminotransferase,5,+','0.5',"+number+"),('Node 5','Alamine Aminotransferase,5,-','0.5',"+number+")";
+                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                pst.execute();  
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp6");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp6");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
                 System.out.println(sql2);
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
                 System.out.println(sql2);
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+             entropy6();
             }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Aspartate Aminotransferase,5,+','0.5',"+number+"),('Node 5','Aspartate Aminotransferase,5,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp6");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp6");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+             entropy6();
             }else if (res.getString(3).contains("Total Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Total Bilirubin,5,+','0.5',"+number+"),('Node 5','Total Bilirubin,5,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp6");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp6");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+             entropy6();
             }else if (res.getString(3).contains("Albumin and Global")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Albumin and Global,1,+','0.5',"+number+"),('Node 5','Albumin and Global,5,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp6");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp6");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+              entropy6();
             }else if (res.getString(3).contains("Albumin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Albumin,5,+','0.5',"+number+"),('Node 5','Albumin,5,-','0.5',"+number+"),('Node 5','Albumin,5,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp6");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Albumin","Normal","Temp6");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp6");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp6");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership5 > cmembership1 || cmembership6 > cmembership2 || cmembership5 > cmembership3 || cmembership6 > cmembership4){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
+                 Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy6();
             }else if (res.getString(3).contains("Total Protiens")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Total Protiens,5,+','0.5',"+number+"),('Node 5','Total Protiens,5,-','0.5',"+number+"),('Node 5','Total Protiens,5,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp6");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp6");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy6();
             }else if (res.getString(3).contains("Direct Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Direct Bilirubin,5,+','0.5',"+number+"),('Node 5','Alkaline Phosphotase,5,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp6");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp6");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy6();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Alkaline Phosphotase,5,+','0.5',"+number+"),('Node 5','Alkaline Phosphotase,5,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp6");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp6");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);             
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy6();
             } else if (res.getString(3).contains("Age")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 5','Age,5,+','0.5',"+number+"),('Node 5','Age,5,-','0.5',"+number+"),('Node 5','Age,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp6");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp6");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp6");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp6");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp6");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp6");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+            }
+               entropy6();
             }
             }
           }catch (Exception e) {
@@ -4098,244 +4707,399 @@ public class Menu2 extends javax.swing.JFrame {
      }
      
      private void nodeDelapan(){
-          java.sql.Connection conn=(Connection)Koneksi.configDB();
-           Integer number;
-           
-          Menu2 nw = new Menu2();
-          number = nw.numProses();
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number,val,tetan;
+           double ctetan,ctetan1,val1;
+          number = numProses();
           if(number == 0){
               number = 1;
           }
-             try {
-               String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 7,1";
+          val = dataMentah("Temp8");
+          tetan = tetanProses();
+          ctetan = tetan/100;
+          ctetan1 = val * ctetan;
+          val1 = val / 10;
+          try {
+           insertDataTemp8(); 
+           if(val >= ctetan1){
+            String sql = "select * from result where type = 'Gain 7' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+           System.out.println(sql);
             while(res.next()){
                if(res.getString(3).contains("Alamine Aminotransferase")){
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 7','Alamine Aminotransferase,7,+','0.5',"+number+"),('Node 7','Alamine Aminotransferase,1,-','0.5',"+number+")";
+                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                pst.execute();  
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp8");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp8");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+             entropy8();
             }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Aspartate Aminotransferase,1,+','0.5',"+number+"),('Node 1','Aspartate Aminotransferase,-,1','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp8");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp8");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+             entropy8();
             }else if (res.getString(3).contains("Total Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Total Bilirubin,1,+','0.5',"+number+"),('Node 1','Total Bilirubin,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp8");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp8");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+             entropy8();
             }else if (res.getString(3).contains("Albumin and Global")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Albumin and Global,1,+','0.5',"+number+"),('Node 1','Albumin and Global,-,1','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp8");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp8");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+              entropy8();
             }else if (res.getString(3).contains("Albumin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Albumin,1,+','0.5',"+number+"),('Node 1','Albumin,1,-','0.5',"+number+"),('Node','Albumin,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp8");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Albumin","Normal","Temp8");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp8");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp8");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2 || cmembership3 > cmembership5 || cmembership4 > cmembership6){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
+                 Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy8();
             }else if (res.getString(3).contains("Total Protiens")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Total Protiens,1,+','0.5',"+number+"),('Node 1','Total Protiens,1,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp8");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp8");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy8();
             }else if (res.getString(3).contains("Direct Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Direct Bilirubin,1,+','0.5',"+number+"),('Node 1','Alkaline Phosphotase,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp8");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp8");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy8();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Alkaline Phosphotase,1,+','0.5',"+number+"),('Node 1','Alkaline Phosphotase,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp8");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp8");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy8();
             } else if (res.getString(3).contains("Age")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Age,1,+','0.5',"+number+"),('Node 1','Age,1,-','0.5',"+number+"),('Node 1','Age,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp8");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp8");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp8");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp8");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp8");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp8");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+            }
+               entropy8();
             }
             }
           }catch (Exception e) {
@@ -4351,244 +5115,399 @@ public class Menu2 extends javax.swing.JFrame {
      }
      
      private void nodeSembilan(){
-          java.sql.Connection conn=(Connection)Koneksi.configDB();
-           Integer number;
-           
-          Menu2 nw = new Menu2();
-          number = nw.numProses();
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number,val,tetan;
+           double ctetan,ctetan1,val1;
+          number = numProses();
           if(number == 0){
               number = 1;
           }
-             try {
-               String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 8,1";
+          val = dataMentah("Temp9");
+          tetan = tetanProses();
+          ctetan = tetan/100;
+          ctetan1 = val * ctetan;
+          val1 = val / 10;
+          try {
+           insertDataTemp9(); 
+           if(val >= ctetan1){
+            String sql = "select * from result where type = 'Gain 7' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+           System.out.println(sql);
             while(res.next()){
                if(res.getString(3).contains("Alamine Aminotransferase")){
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 8','Alamine Aminotransferase,8,+','0.5',"+number+"),('Node 8','Alamine Aminotransferase,8,-','0.5',"+number+")";
+                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                pst.execute();  
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp9");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp9");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+             entropy9();
             }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 8','Aspartate Aminotransferase,9,+','0.5',"+number+"),('Node 8','Aspartate Aminotransferase,8,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp9");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp9");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+             entropy9();
             }else if (res.getString(3).contains("Total Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 8','Total Bilirubin,1,+','0.5',"+number+"),('Node 8','Total Bilirubin,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp9");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp9");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+             entropy9();
             }else if (res.getString(3).contains("Albumin and Global")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 8','Albumin and Global,8,+','0.5',"+number+"),('Node 8','Albumin and Global,8,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp9");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp9");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+              entropy9();
             }else if (res.getString(3).contains("Albumin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 8','Albumin,8,+','0.5',"+number+"),('Node 8','Albumin,8,-','0.5',"+number+"),('Node 8','Albumin,8,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp9");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Albumin","Normal","Temp9");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp9");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp9");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2 || cmembership3 > cmembership5 || cmembership4 > cmembership6){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
+                 Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy9();
             }else if (res.getString(3).contains("Total Protiens")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 8','Total Protiens,8,+','0.5',"+number+"),('Node 8','Total Protiens,8,-','0.5',"+number+"),('Node 8','Total Protiens,8,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp9");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp9");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy9();
             }else if (res.getString(3).contains("Direct Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 8','Direct Bilirubin,8,+','0.5',"+number+"),('Node 8','Alkaline Phosphotase,8,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp9");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp9");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy9();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 1','Alkaline Phosphotase,1,+','0.5',"+number+"),('Node 1','Alkaline Phosphotase,1,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp9");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp9");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy9();
             } else if (res.getString(3).contains("Age")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 8','Age,8,+','0.5',"+number+"),('Node 8','Age,8,-','0.5',"+number+"),('Node 8','Age,8,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp9");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp9");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp9");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp9");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp9");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp9");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' and `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+            }
+               entropy9();
             }
             }
           }catch (Exception e) {
@@ -4604,244 +5523,399 @@ public class Menu2 extends javax.swing.JFrame {
      }
      
      private void nodeTujuh(){
-          java.sql.Connection conn=(Connection)Koneksi.configDB();
-           Integer number;
-           
-          Menu2 nw = new Menu2();
-          number = nw.numProses();
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+           Integer number,val,tetan;
+           double ctetan,ctetan1,val1;
+          number = numProses();
           if(number == 0){
               number = 1;
           }
+          val = dataMentah("Temp7");
+          tetan = tetanProses();
+          ctetan = tetan/100;
+          ctetan1 = val * ctetan;
+          val1 = val / 10;
           try {
-               String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 6,1";
+           insertDataTemp7(); 
+           if(val >= ctetan1){
+            String sql = "select * from result where type = 'Gain 6' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+           System.out.println(sql);
             while(res.next()){
                if(res.getString(3).contains("Alamine Aminotransferase")){
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Alamine Aminotransferase,6,+','0.5',"+number+"),('Node 6','Alamine Aminotransferase,6,-','0.5',"+number+")";
+                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alamine Aminotransferase,0,+','0.5',"+number+"),('Node Root','Alamine Aminotransferase,0,-','0.5',"+number+")";
                  java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
-                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal");
+                pst.execute();  
+                c1positif = hitungc(conn,"Alamine Aminotransferase","Abnormal","Temp7");
+                c1negatif = hitungcn(conn,"Alamine Aminotransferase","Abnormal","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Alamine Aminotransferase","Normal","Temp7");
+                c2negatif = hitungcn(conn,"Alamine Aminotransferase","Normal","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                pst1.execute();
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                 pst2.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
+                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
+                pst2.execute();
+                System.out.println(sql2);
+                }
+             entropy7();
             }else if (res.getString(3).contains("Aspartate Aminotransferase") ){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Aspartate Aminotransferase,6,+','0.5',"+number+"),('Node 6','Aspartate Aminotransferase,6,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Aspartate Aminotransferase,0,+','0.5',"+number+"),('Node Root','Aspartate Aminotransferase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 System.out.println(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal");
-                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal");
+                c1positif = hitungc(conn,"Aspartate Aminotransferase","Abnormal","Temp7");
+                c1negatif = hitungcn(conn,"Aspartate Aminotransferase","Abnormal","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal");
-                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal");
+                c2positif = hitungc(conn,"Aspartate Aminotransferase","Normal","Temp7");
+                c2negatif = hitungcn(conn,"Aspartate Aminotransferase","Normal","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                 
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+             entropy7();
             }else if (res.getString(3).contains("Total Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Total Bilirubin,6,+','0.5',"+number+"),('Node 6','Total Bilirubin,6,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Bilirubin,0,+','0.5',"+number+"),('Node Root','Total Bilirubin,0,-','0.5',"+number+")";
                java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Total Bilirubin","Abnormal","Temp7");
+                c1negatif = hitungcn(conn,"Total Bilirubin","Abnormal","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Total Bilirubin","Normal");
+                c2positif = hitungc(conn,"Total Bilirubin","Normal","Temp7");
+                c2negatif = hitungcn(conn,"Total Bilirubin","Normal","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }else{
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Aspartate Aminotransferase' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Aspartate Aminotransferase' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+             entropy7();
             }else if (res.getString(3).contains("Albumin and Global")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Albumin and Global,6,+','0.5',"+number+"),('Node 6','Albumin and Global,6,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin and Global,0,+','0.5',"+number+"),('Node Root','Albumin and Global,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin and Global","Abnormal");
-                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal");
+                c1positif = hitungc(conn,"Albumin and Global","Abnormal","Temp7");
+                c1negatif = hitungcn(conn,"Albumin and Global","Abnormal","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin and Global","Normal");
-                c2negatif = hitungcn(conn,"Albumin and Global","Normal");
+                c2positif = hitungc(conn,"Albumin and Global","Normal","Temp7");
+                c2negatif = hitungcn(conn,"Albumin and Global","Normal","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+              entropy7();
             }else if (res.getString(3).contains("Albumin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Albumin,6,+','0.5',"+number+"),('Node 6','Albumin,6,-','0.5',"+number+"),('Node 6','Albumin,6,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Albumin,0,+','0.5',"+number+"),('Node Root','Albumin,0,-','0.5',"+number+"),('Node','Albumin,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Albumin","Rendah");
-                c1negatif = hitungcn(conn,"Albumin","Rendah");
+                c1positif = hitungc(conn,"Albumin","Rendah","Temp7");
+                c1negatif = hitungcn(conn,"Albumin","Rendah","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Albumin","Normal");
-                c2negatif = hitungcn(conn,"Albumin","Normal");
+                c2positif = hitungc(conn,"Albumin","Normal","Temp7");
+                c2negatif = hitungcn(conn,"Albumin","Normal","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Albumin","Tinggi");
-                c3negatif = hitungcn(conn,"Albumin","Tinggi");
+                c3positif = hitungc(conn,"Albumin","Tinggi","Temp7");
+                c3negatif = hitungcn(conn,"Albumin","Tinggi","Temp7");
                 ctotal = c3positif + c3negatif;
                 cmembership5 = (c2positif / ctotal2) * 100;
                 cmembership6 = (c2negatif / ctotal1) * 100;
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2 || cmembership3 > cmembership5 || cmembership4 > cmembership6){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Albumin' and label='Tinggi' ','0.5',"+number+")";
+                 Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy7();
             }else if (res.getString(3).contains("Total Protiens")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Total Protiens,6,+','0.5',"+number+"),('Node 6','Total Protiens,6,-','0.5',"+number+"),('Node 6','Total Protiens,6,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Total Protiens,0,+','0.5',"+number+"),('Node Root','Total Protiens,0,-','0.5',"+number+"),('Node','Total Protiens,1,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Total Protiens","Abnormal");
-                c1negatif = hitungcn(conn,"Total Protiens","Abnormal");
+                c1positif = hitungc(conn,"Total Protiens","Abnormal","Temp7");
+                c1negatif = hitungcn(conn,"Total Protiens","Abnormal","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Total Protiens","Normal");
-                c2negatif = hitungcn(conn,"Total Protiens","Normal");
+                c2positif = hitungc(conn,"Total Protiens","Normal","Temp7");
+                c2negatif = hitungcn(conn,"Total Protiens","Normal","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Protiens' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' and `key` ='Total Protiens' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                }
+                entropy7();
             }else if (res.getString(3).contains("Direct Bilirubin")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Direct Bilirubin,6,+','0.5',"+number+"),('Node 6','Alkaline Phosphotase,6,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Direct Bilirubin,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal");
-                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal");
+                c1positif = hitungc(conn,"Direct Bilirubin","Abnormal","Temp7");
+                c1negatif = hitungcn(conn,"Direct Bilirubin","Abnormal","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Direct Bilirubin","Normal");
-                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal");
+                c2positif = hitungc(conn,"Direct Bilirubin","Normal","Temp7");
+                c2negatif = hitungcn(conn,"Direct Bilirubin","Normal","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Direct Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Direct Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy7();
             }else if (res.getString(3).contains("Alkaline Phosphotase")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Alkaline Phosphotase,6,+','0.5',"+number+"),('Node 6','Alkaline Phosphotase,6,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Alkaline Phosphotase,0,+','0.5',"+number+"),('Node Root','Alkaline Phosphotase,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal");
-                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal");
+                c1positif = hitungc(conn,"Alkaline Phosphotase","Abnormal","Temp7");
+                c1negatif = hitungcn(conn,"Alkaline Phosphotase","Abnormal","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal");
-                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal");
+                c2positif = hitungc(conn,"Alkaline Phosphotase","Normal","Temp7");
+                c2negatif = hitungcn(conn,"Alkaline Phosphotase","Normal","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Total Bilirubin' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
-                 
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Total Bilirubin' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` ='Albumin and Global' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` ='Albumin and Global' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+                entropy7();
             } else if (res.getString(3).contains("Age")){
-                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 6','Age,6,+','0.5',"+number+"),('Node 6','Age,6,-','0.5',"+number+"),('Node 1','Age,6,-','0.5',"+number+")";
+                String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node Root','Age,0,+','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+"),('Node Root','Age,0,-','0.5',"+number+")";
                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
                 pst.execute();
-                c1positif = hitungc(conn,"Age","Muda");
-                c1negatif = hitungcn(conn,"Age","Muda");
+                c1positif = hitungc(conn,"Age","Muda","Temp7");
+                c1negatif = hitungcn(conn,"Age","Muda","Temp7");
                 ctotal1 = c1positif + c1negatif;
                 cmembership1 = (c1positif / ctotal1) * 100;
                 cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,"Age","Dewasa");
-                c2negatif = hitungcn(conn,"Age","Dewasa");
+                c2positif = hitungc(conn,"Age","Dewasa","Temp7");
+                c2negatif = hitungcn(conn,"Age","Dewasa","Temp7");
                 ctotal2 = c2positif + c2negatif;
                 cmembership3 = (c2positif / ctotal2) * 100;
                 cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,"Age","Muda");
-                c3negatif = hitungcn(conn,"Age","Muda");
+                c3positif = hitungc(conn,"Age","Muda","Temp7");
+                c3negatif = hitungcn(conn,"Age","Muda","Temp7");
                 ctotal = c1positif + c1negatif;
                 cmembership5 = (c3positif / ctotal) * 100;
                 cmembership6 = (c3negatif / ctotal) * 100;
+                Integer tetar;
+                Menu2 tr = new Menu2();
+                tetar = tr.tetarProses();
+                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
                 if((cmembership3 > cmembership1) || (cmembership4 > cmembership2) || (cmembership3 > cmembership5) || (cmembership2 > cmembership6)){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                  
                 pst1.execute();
                 }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' and `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
                  java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
                 pst1.execute();
                 }
+                } else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
+                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Normal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                System.out.println(sql2);
+                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi',' `key` ='Age' and label='Abnormal' ','0.5',"+number+")";
+                 java.sql.PreparedStatement pst1=conn.prepareStatement(sql2);
+                pst1.execute();
+                }
+            }
+               entropy7();
             }
             }
           }catch (Exception e) {
@@ -4855,7 +5929,295 @@ public class Menu2 extends javax.swing.JFrame {
             }
         }
      }
-   
+     
+      public void insertDataTemp1(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp1 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from fuzzy"
+                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+      
+      public void insertDataTemp2(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain 1' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp2 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from temp1"
+                   + " where idprosesfold in (select idprosesfold from temp1 where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+      
+      public void insertDataTemp3(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain 2' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp3 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from temp2"
+                   + " where idprosesfold in (select idprosesfold from temp2 where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     } 
+      
+       public void insertDataTemp4(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain 3' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp4 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from temp3"
+                   + " where idprosesfold in (select idprosesfold from temp3 where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+     public void insertDataTemp5(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain 4' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp5 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from temp4"
+                   + " where idprosesfold in (select idprosesfold from temp4 where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+      public void insertDataTemp6(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain 5' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp6 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from temp5"
+                   + " where idprosesfold in (select idprosesfold from temp5 where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+      
+      public void insertDataTemp7(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain 6' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp7 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from temp6"
+                   + " where idprosesfold in (select idprosesfold from temp6 where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+      public void insertDataTemp8(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain 7' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp8 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from temp7"
+                   + " where idprosesfold in (select idprosesfold from temp7 where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     }
+     
+     public void insertDataTemp9(){
+         java.sql.Connection conn=(Connection)Koneksi.configDB();
+          Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+          if(number == 0){
+              number = 1;
+          }
+       try{
+           String sql = "select * from result where type = 'Gain 8' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+           String sql1 = "Insert into temp9 (idprosesfold,`key`,category,`value`)"
+                   + " select idprosesfold,`key`,category,`value` from temp8"
+                   + " where idprosesfold in (select idprosesfold from temp8 where `key` = "+res.getString(1)+")";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           run.execute();
+         }
+       }
+       catch(Exception e){
+         JOptionPane.showMessageDialog(this,e.getMessage());
+       }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+     } 
+     
 //     private void updatePrediksi(Connection conn,String table,String status){
 //          try {
 //            int num1 = 0;
