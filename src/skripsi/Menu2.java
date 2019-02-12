@@ -243,6 +243,33 @@ public class Menu2 extends javax.swing.JFrame {
          return tetar;
     }
     
+     public Integer foldTesting(){
+        java.sql.Connection conn=(Connection)Koneksi.configDB();
+        Integer fold;
+        fold = 0;
+         Integer number;
+          Menu2 nw = new Menu2();
+          number = nw.numProses();
+         try{
+            String sql = "SELECT distinct fold from prosesfold where `status` = 'Testing' and prosespenelitian= "+number+""; 
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){ 
+              fold = Integer.parseInt(res.getString(1));
+            }
+       }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+         System.out.println(fold);
+         return fold;
+    }
+    
     public Integer dataMentah(String label1){
         java.sql.Connection conn=(Connection)Koneksi.configDB();
         int val;
@@ -405,9 +432,11 @@ public class Menu2 extends javax.swing.JFrame {
            String sql ="UPDATE prosesfold SET prediksi = '1' WHERE ( select keytable from result where `type` = 'Prediksi 1') and status = 'Testing' ";
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             pst.execute();
+            System.out.println(sql);
             String sql1 ="UPDATE prosesfold SET prediksi = '2' WHERE ( select keytable from result where `type` = 'Prediksi 2') and status = 'Testing' ";
             java.sql.PreparedStatement pst1=conn.prepareStatement(sql1);
             pst1.execute();
+            System.out.println(sql1);
             conn.close();
         } catch (Exception e) {
         }finally{
@@ -420,45 +449,67 @@ public class Menu2 extends javax.swing.JFrame {
         }
     }
     
-     private void hitungakurasiperfoldTesting(){
-        java.sql.Connection conn=(Connection)Koneksi.configDB();
-        Integer number;
-          number = numProses();
-          if(number == 0){
-              number = 1;
-          }
-          try {
-            String sql = "select distinct(fold) as fold from prosesfold where status = 'Testing' and prosespenelitian = "+number+"";
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-            
-            while(res.next()){ 
-               akurasi(conn, Integer.parseInt(res.getString(1)));
-            }
-            
-        } catch (Exception e) {
-        }finally{
-            try {
-                if (conn !=null)
-                    conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-     }
+//     private void hitungakurasiperfoldTesting(){
+//        java.sql.Connection conn=(Connection)Koneksi.configDB();
+//        Integer number;
+//          number = numProses();
+//          if(number == 0){
+//              number = 1;
+//          }
+//          try {
+//            String sql = "select distinct(fold) as fold from prosesfold where status = 'Testing' and prosespenelitian = "+number+"";
+//            java.sql.Statement stm=conn.createStatement();
+//            java.sql.ResultSet res=stm.executeQuery(sql);
+//            
+//            while(res.next()){ 
+//               akurasi(conn, Integer.parseInt(res.getString(1)));
+//            }
+//            
+//        } catch (Exception e) {
+//        }finally{
+//            try {
+//                if (conn !=null)
+//                    conn.close();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//     }
      private void hitungakurasiperfoldTraining(){
         java.sql.Connection conn=(Connection)Koneksi.configDB();
           try {
-           Integer number;
-          number = numProses();
-          if(number == 0){
-              number = 1;
-          }
-            String sql = "select distinct(fold) from prosesfold where status = 'Testing' and prosespenelitian = '"+number+"'";
+           Integer kelas,prediksi;
+            Float tp,tn,fp,fn,akurasidata,jumlah1,jumlah2;
+            kelas = 0;
+            tp = null;
+            tn = null;
+            fp = null;
+            fn = null;
+            jumlah1 = null;
+            jumlah2 = null;
+            prediksi = 0;
+            Integer number,fold;
+            Menu2 nw = new Menu2();
+            number = nw.numProses();
+            if(number == 0){
+                number = 1;
+            }
+            fold = foldTesting();
+            String sql = "select sum(case when prediksi = '1' and dataset = '1' Then 1 end) TP, sum(case when prediksi = '1' and dataset = '2' Then 1 end) FN, sum(case when prediksi = '2' and dataset = '2' Then 1 end) TN, sum(case when prediksi = '2' and dataset = '1' Then 1 end) FP from prosesfold where fold ='"+fold+"' and prosepenelitian = "+number+"";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
-            while(res.next()){ 
-               akurasi(conn, Integer.parseInt(res.getString(1)));
+            while(res.next()){
+                tp = Float.parseFloat(res.getString(1));
+                fn = Float.parseFloat(res.getString(2));
+                tn = Float.parseFloat(res.getString(3));
+                fp = Float.parseFloat(res.getString(4));
+             jumlah1 = tp+tn;
+             jumlah2 = tp+tn+fp+fn;
+             akurasidata = (jumlah1/jumlah2) * 100;
+             String sql1 = "Insert into result(type,keytable,`value`) values ('Akurasi','Proses Fold "+fold+"','"+akurasidata+"')";
+             System.out.println(sql1);
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
+            run.execute();
             }
         } catch (Exception e) {
         }finally{
@@ -2234,6 +2285,7 @@ public class Menu2 extends javax.swing.JFrame {
                          " where p.dataset = 1 and f.`key` = '"+label1+"' and f.label = '"+label2+"' and f.`value` <> 0 and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
+            System.out.println(sql);
             while(res.next()){
                 angka2 = Double.parseDouble(res.getString(1));
             }
@@ -2297,7 +2349,13 @@ public class Menu2 extends javax.swing.JFrame {
                 Integer tetar;
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
+                System.out.println(tetar);
+                System.out.println(cmembership3);
+                System.out.println(c1positif);
+                System.out.println(c1negatif);
+                
                 if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+              
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
                  java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
@@ -5130,7 +5188,7 @@ public class Menu2 extends javax.swing.JFrame {
           try {
            insertDataTemp9(); 
            if(val >= ctetan1){
-            String sql = "select * from result where type = 'Gain 7' and prosespenelitian= "+number+" order by `value` desc limit 1";
+            String sql = "select * from result where type = 'Gain 8' and prosespenelitian= "+number+" order by `value` desc limit 1";
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
            System.out.println(sql);
@@ -5153,6 +5211,7 @@ public class Menu2 extends javax.swing.JFrame {
                 Menu2 tr = new Menu2();
                 tetar = tr.tetarProses();
                 if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
+               
                 if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
                  String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
                  java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
@@ -5943,10 +6002,11 @@ public class Menu2 extends javax.swing.JFrame {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-           String sql1 = "Insert into temp1 (idprosesfold,`key`,category,`value`)"
-                   + " select idprosesfold,`key`,category,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           String sql1 = "Insert into temp1 (idprosesfold,`key`,category,label,`value`)"
+                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
+                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
+           System.out.println(sql1);
            run.execute();
          }
        }
@@ -5975,10 +6035,10 @@ public class Menu2 extends javax.swing.JFrame {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-           String sql1 = "Insert into temp2 (idprosesfold,`key`,category,`value`)"
-                   + " select idprosesfold,`key`,category,`value` from temp1"
-                   + " where idprosesfold in (select idprosesfold from temp1 where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           String sql1 = "Insert into temp2 (idprosesfold,`key`,category,`value`,label)"
+                   + " select idprosesfold,`key`,category,`value`,label from temp1"
+                   + " where idprosesfold in (select idprosesfold from temp1 where `key` = "+"'"+res.getString(3)+"')";;
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
            run.execute();
          }
        }
@@ -6007,10 +6067,10 @@ public class Menu2 extends javax.swing.JFrame {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-           String sql1 = "Insert into temp3 (idprosesfold,`key`,category,`value`)"
-                   + " select idprosesfold,`key`,category,`value` from temp2"
-                   + " where idprosesfold in (select idprosesfold from temp2 where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           String sql1 = "Insert into temp3 (idprosesfold,`key`,category,`value`,label)"
+                   + " select idprosesfold,`key`,category,`value`,label from temp2"
+                   + " where idprosesfold in (select idprosesfold from temp2 where `key` = "+"'"+res.getString(3)+"')";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
            run.execute();
          }
        }
@@ -6039,10 +6099,10 @@ public class Menu2 extends javax.swing.JFrame {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-           String sql1 = "Insert into temp4 (idprosesfold,`key`,category,`value`)"
-                   + " select idprosesfold,`key`,category,`value` from temp3"
-                   + " where idprosesfold in (select idprosesfold from temp3 where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           String sql1 = "Insert into temp4 (idprosesfold,`key`,category,`value`,label)"
+                   + " select idprosesfold,`key`,category,`value`,label from temp3"
+                   + " where idprosesfold in (select idprosesfold from temp3 where `key` = "+"'"+res.getString(3)+"')";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
            run.execute();
          }
        }
@@ -6071,10 +6131,10 @@ public class Menu2 extends javax.swing.JFrame {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-           String sql1 = "Insert into temp5 (idprosesfold,`key`,category,`value`)"
-                   + " select idprosesfold,`key`,category,`value` from temp4"
-                   + " where idprosesfold in (select idprosesfold from temp4 where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           String sql1 = "Insert into temp5 (idprosesfold,`key`,category,`value`,label)"
+                   + " select idprosesfold,`key`,category,`value`,label from temp4"
+                   + " where idprosesfold in (select idprosesfold from temp4 where `key` "+"'"+res.getString(3)+"')";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
            run.execute();
          }
        }
@@ -6105,8 +6165,8 @@ public class Menu2 extends javax.swing.JFrame {
             while(res.next()){
            String sql1 = "Insert into temp6 (idprosesfold,`key`,category,`value`)"
                    + " select idprosesfold,`key`,category,`value` from temp5"
-                   + " where idprosesfold in (select idprosesfold from temp5 where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+                   + " where idprosesfold in (select idprosesfold from temp5 where `key` = "+"'"+res.getString(3)+"')";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
            run.execute();
          }
        }
@@ -6135,10 +6195,10 @@ public class Menu2 extends javax.swing.JFrame {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-           String sql1 = "Insert into temp7 (idprosesfold,`key`,category,`value`)"
-                   + " select idprosesfold,`key`,category,`value` from temp6"
-                   + " where idprosesfold in (select idprosesfold from temp6 where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           String sql1 = "Insert into temp7 (idprosesfold,`key`,category,`value`,label)"
+                   + " select idprosesfold,`key`,category,`value`,label from temp6"
+                   + " where idprosesfold in (select idprosesfold from temp6 where `key` = "+"'"+res.getString(3)+"')";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
            run.execute();
          }
        }
@@ -6167,10 +6227,10 @@ public class Menu2 extends javax.swing.JFrame {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-           String sql1 = "Insert into temp8 (idprosesfold,`key`,category,`value`)"
-                   + " select idprosesfold,`key`,category,`value` from temp7"
-                   + " where idprosesfold in (select idprosesfold from temp7 where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           String sql1 = "Insert into temp8 (idprosesfold,`key`,category,`value`,label)"
+                   + " select idprosesfold,`key`,category,`value`,label from temp7"
+                   + " where idprosesfold in (select idprosesfold from temp7 where `key` = "+"'"+res.getString(3)+"')";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
            run.execute();
          }
        }
@@ -6199,10 +6259,10 @@ public class Menu2 extends javax.swing.JFrame {
             java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
-           String sql1 = "Insert into temp9 (idprosesfold,`key`,category,`value`)"
-                   + " select idprosesfold,`key`,category,`value` from temp8"
-                   + " where idprosesfold in (select idprosesfold from temp8 where `key` = "+res.getString(1)+")";
-           java.sql.PreparedStatement run=conn.prepareStatement(sql);
+           String sql1 = "Insert into temp9 (idprosesfold,`key`,category,`value`,label)"
+                   + " select idprosesfold,`key`,category,`value`,label from temp8"
+                   + " where idprosesfold in (select idprosesfold from temp8 where `key` = "+"'"+res.getString(3)+"')";
+           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
            run.execute();
          }
        }
@@ -6240,40 +6300,6 @@ public class Menu2 extends javax.swing.JFrame {
 //        }
 //         
 //     }
-        private void akurasi(Connection conn, Integer fold){
-            Integer kelas,prediksi;
-            Float tp,tn,fp,fn,akurasidata,jumlah1,jumlah2;
-            kelas = 0;
-            tp = null;
-            tn = null;
-            fp = null;
-            fn = null;
-            jumlah1 = null;
-            jumlah2 = null;
-            prediksi = 0;
-            Integer number;
-            number = numProses();
-          try {
-            String sql = "select sum(case when prediksi = '1' and dataset = '1' Then 1 end) TP, sum(case when prediksi = '1' and dataset = '2' Then 1 end) FN, sum(case when prediksi = '2' and dataset = '2' Then 1 end) TN, sum(case when prediksi = '2' and dataset = '1' Then 1 end) FP from prosesfold where fold ='"+fold+"' and prosepenelitian = "+number+"";
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-            while(res.next()){
-                tp = Float.parseFloat(res.getString(1));
-                fn = Float.parseFloat(res.getString(2));
-                tn = Float.parseFloat(res.getString(3));
-                fp = Float.parseFloat(res.getString(4));
-             jumlah1 = tp+tn;
-             jumlah2 = tp+tn+fp+fn;
-             akurasidata = (jumlah1/jumlah2) * 100;
-             String sql1 = "Insert into result(type,keytable,`value`) values ('Akurasi','Proses Fold "+fold+"','"+akurasidata+"')";
-             System.out.println(sql1);
-           java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-            run.execute();
-            }
-           
-        } catch (Exception e) {
-        }
-     }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

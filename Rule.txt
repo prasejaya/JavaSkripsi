@@ -34,3 +34,125 @@ Albumin and Global,-,1Pada proses ke 1
 Age,8,+Pada proses ke 1
 Age,8,-Pada proses ke 1
 Age,8,-Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 1
+Alamine Aminotransferase,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 1
+Alamine Aminotransferase,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 1
+Alamine Aminotransferase,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 1
+Alamine Aminotransferase,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 1
+Alamine Aminotransferase,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 1
+Alamine Aminotransferase,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Albumin and Global,0,+Pada proses ke 1
+Albumin and Global,0,-Pada proses ke 1
+Alamine Aminotransferase,0,+Pada proses ke 2
+Alamine Aminotransferase,0,-Pada proses ke 2
+Albumin and Global,0,+Pada proses ke 2
+Albumin and Global,0,-Pada proses ke 2
+Albumin and Global,0,+Pada proses ke 2
+Albumin and Global,0,-Pada proses ke 2
+Albumin and Global,0,+Pada proses ke 2
+Albumin and Global,0,-Pada proses ke 2
+Albumin and Global,0,+Pada proses ke 2
+Albumin and Global,0,-Pada proses ke 2
+Albumin and Global,0,+Pada proses ke 2
+Albumin and Global,0,-Pada proses ke 2
+Albumin and Global,0,+Pada proses ke 2
+Albumin and Global,0,-Pada proses ke 2
+Albumin and Global,0,+Pada proses ke 2
+Albumin and Global,0,-Pada proses ke 2
+Albumin and Global,0,+Pada proses ke 2
+Albumin and Global,0,-Pada proses ke 2
