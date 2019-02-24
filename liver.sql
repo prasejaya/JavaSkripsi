@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18 Feb 2019 pada 10.35
+-- Generation Time: 25 Feb 2019 pada 00.54
 -- Versi Server: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -12036,15 +12036,43 @@ CREATE TABLE IF NOT EXISTS `result` (
   `keytable` varchar(50) NOT NULL,
   `value` float NOT NULL,
   `prosespenelitian` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data untuk tabel `result`
 --
 
 INSERT INTO `result` (`idresult`, `type`, `keytable`, `value`, `prosespenelitian`) VALUES
-(1, 'teta', 'tetar', 10, 1),
-(2, 'teta', 'tetan', 10, 1);
+(1, 'teta', 'tetar', 75, 1),
+(2, 'teta', 'tetan', 10, 1),
+(3, 'Gain 0', 'Age', -0.0399, 1),
+(4, 'Gain 0', 'Total Bilirubin', 0.0234, 1),
+(5, 'Gain 0', 'Direct Bilirubin', 0.0135, 1),
+(6, 'Gain 0', 'Alkaline Phosphotase', 0.0001, 1),
+(7, 'Gain 0', 'Alamine Aminotransferase', 0.041, 1),
+(8, 'Gain 0', 'Aspartate Aminotransferase', 0.0391, 1),
+(9, 'Gain 0', 'Total Protiens', 0.0004, 1),
+(10, 'Gain 0', 'Albumin', 0.0106, 1),
+(11, 'Gain 0', 'Albumin and Global', -0.0037, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `rule`
+--
+
+CREATE TABLE IF NOT EXISTS `rule` (
+`idrule` bigint(20) unsigned NOT NULL,
+  `keytable` varchar(255) NOT NULL,
+  `prosespenelitian` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `rule`
+--
+
+INSERT INTO `rule` (`idrule`, `keytable`, `prosespenelitian`) VALUES
+(1, 'alamine,0,age,0,+', 1);
 
 -- --------------------------------------------------------
 
@@ -12210,6 +12238,12 @@ ALTER TABLE `result`
  ADD PRIMARY KEY (`idresult`), ADD UNIQUE KEY `idresult` (`idresult`);
 
 --
+-- Indexes for table `rule`
+--
+ALTER TABLE `rule`
+ ADD PRIMARY KEY (`idrule`), ADD UNIQUE KEY `idrule` (`idrule`);
+
+--
 -- Indexes for table `temp1`
 --
 ALTER TABLE `temp1`
@@ -12286,7 +12320,12 @@ MODIFY `idprosesfold` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT
 -- AUTO_INCREMENT for table `result`
 --
 ALTER TABLE `result`
-MODIFY `idresult` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `idresult` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `rule`
+--
+ALTER TABLE `rule`
+MODIFY `idrule` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `temp1`
 --

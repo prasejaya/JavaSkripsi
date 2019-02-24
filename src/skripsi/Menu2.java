@@ -210,6 +210,58 @@ public class Menu2 extends javax.swing.JFrame {
          return number;
     }
     
+     public Integer MemberDataP(Integer i,Integer j,Integer n){
+        java.sql.Connection conn=(Connection)Koneksi.configDB();
+        Integer number;
+        number = 0;
+         try{
+            String sql = " select sum(`value`) from temp"+i+" f " +
+                         " join prosesfold p on p.idprosesfold = f.idprosesfold " +
+                         " where p.dataset = 1 and f.`key` = (select `keytable` from result where type = 'Gain "+j+"' order by `value` desc limit 1 )and f.`value` <> 0 and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){ 
+              number = Integer.parseInt(res.getString(1));
+            }
+       }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+         System.out.println(number);
+         return number;
+    }
+     
+    public Integer MemberDataN(Integer i,Integer j){
+        java.sql.Connection conn=(Connection)Koneksi.configDB();
+        Integer number;
+        number = 0;
+         try{
+             String sql = " select sum(`value`) from temp"+i+" f " +
+                         " join prosesfold p on p.idprosesfold = f.idprosesfold " +
+                         " where p.dataset = 2 and f.`key` = (select `keytable` from result where type = 'Gain "+j+"' order by `value` desc limit 1 )and f.`value` <> 0 and prosespenelitian= "+number+" order by `value` desc limit 1";
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){ 
+              number = Integer.parseInt(res.getString(1));
+            }
+       }catch (Exception e) {
+        }finally{
+            try {
+                if (conn !=null)
+                    conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuFold.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+         System.out.println(number);
+         return number;
+    } 
+    
     public Integer tetanProses(){
         java.sql.Connection conn=(Connection)Koneksi.configDB();
         int tetan;
@@ -380,7 +432,7 @@ public class Menu2 extends javax.swing.JFrame {
         connect =  DriverManager.getConnection("jdbc:mysql://localhost/liver" +
         "?user=root&password=");
         s = connect.createStatement();
-        String sql = "SELECT * FROM  result where type like '%Node %' ";
+        String sql = "SELECT group_concat(keytable,'\n') FROM  rule order by idrule asc";
         System.out.println(sql);
         ResultSet rec = s.executeQuery(sql);
         //tolong ganti sesuai selera
@@ -486,14 +538,6 @@ public class Menu2 extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:         
          nodeAwal();
-//         nodeDua();
-//         nodeTiga();
-//         nodeEmpat();
-//         nodeLima();
-//         nodeEnam();
-//         nodeTujuh();
-//         nodeDelapan();
-//         nodeSembilan();
          updatePrediksi();
          hitungakurasiperfoldTraining();
          exportRule();
@@ -2397,7 +2441,7 @@ public class Menu2 extends javax.swing.JFrame {
      private void nodeAwal(){
          java.sql.Connection conn=(Connection)Koneksi.configDB();
           Integer number,tetan,val;
-          double ctetan1,ctetan,val1;
+          double ctetan1,ctetan,val1,memberpos,memberneg,memberall,ypos,yneg,yall;
           int a = 0;
           int b = 1;
           Menu2 nw = new Menu2();
@@ -2406,174 +2450,21 @@ public class Menu2 extends javax.swing.JFrame {
               number = 1;
           }
          try {
-             System.out.println("jangkrik");
-             int i = 0;
-             do {
-            String sql = "select * from result where type = 'Gain '"+a+" and prosespenelitian= "+number+" order by `value` desc limit 1";
-            java.sql.Statement stm=conn.createStatement();
-            java.sql.ResultSet res=stm.executeQuery(sql);
-           System.out.println(sql);
-           System.exit(0);
-            while(res.next()){
-                if(i== 0){
-                 String sql1 = "Insert into temp1 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }else if (i==1){
-                    String sql1 = "Insert into temp2 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }else if (i==2){
-                    String sql1 = "Insert into temp3 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }else if (i==3){
-                    String sql1 = "Insert into temp4 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }else if (i==4){
-                    String sql1 = "Insert into temp5 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }else if (i==5){
-                    String sql1 = "Insert into temp6 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }else if (i==6){
-                    String sql1 = "Insert into temp7 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }else if (i==7){
-                    String sql1 = "Insert into temp8 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }else if (i==8){
-                    String sql1 = "Insert into temp9 (idprosesfold,`key`,category,label,`value`)"
-                   + " select idprosesfold,`key`,category,label,`value` from fuzzy"
-                   + " where idprosesfold in (select idprosesfold from fuzzy where `key` = "+"'"+res.getString(3)+"')";
-                    java.sql.PreparedStatement run=conn.prepareStatement(sql1);
-                    System.out.println(sql1);
-                    run.execute();
-                }
-                 String tes = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Node 0','"+res.getString(3)+","+0+"','0.5',"+number+")";
-                 java.sql.PreparedStatement pst=conn.prepareStatement(tes);
-                pst.execute();
+             for(int i = 1;i<=9;i++){
+                 insertDataMen(i);
                  val = JumData(b);
                 tetan = tetanProses();
                 ctetan = tetan/100;
                 ctetan1 = val * ctetan;
                 val1 = val / 10;
-                if(val1 > ctetan1) {
-                if(res.getString(3) == "Alamine Aminotransferase" || res.getString(3) == "Direct Bilirubin" || res.getString(3) == "Albumin and Globulin Ratio " || res.getString(3)=="Aspartate Aminotransferase"){
-                c1positif = hitungc(conn,res.getString(3),"Abnormal","Temp1");
-                c1negatif = hitungcn(conn,res.getString(3),"Abnormal","Temp1");
-                ctotal1 = c1positif + c1negatif;
-                cmembership1 = (c1positif / ctotal1) * 100;
-                cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,res.getString(3),"Normal","Temp1");
-                c2negatif = hitungcn(conn,res.getString(3),"Normal","Temp1");
-                ctotal2 = c2positif + c2negatif;
-                cmembership3 = (c2positif / ctotal2) * 100;
-                cmembership4 = (c2negatif / ctotal1) * 100;
-                }else if (res.getString(3) == "Alkaline Phosphotase"){
-                c1positif = hitungc(conn,res.getString(3),"Tinggi","Temp1");
-                c1negatif = hitungcn(conn,res.getString(3),"Tinggi","Temp1");
-                ctotal1 = c1positif + c1negatif;
-                cmembership1 = (c1positif / ctotal1) * 100;
-                cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,res.getString(3),"Normal","Temp1");
-                c2negatif = hitungcn(conn,res.getString(3),"Normal","Temp1");
-                ctotal2 = c2positif + c2negatif;
-                cmembership3 = (c2positif / ctotal2) * 100;
-                cmembership4 = (c2negatif / ctotal1) * 100;
-                }
-                else if (res.getString(3) == "Alkaline Phosphotase"){
-                c1positif = hitungc(conn,res.getString(3),"Tinggi","Temp1");
-                c1negatif = hitungcn(conn,res.getString(3),"Tinggi","Temp1");
-                ctotal1 = c1positif + c1negatif;
-                cmembership1 = (c1positif / ctotal1) * 100;
-                cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,res.getString(3),"Normal","Temp1");
-                c2negatif = hitungcn(conn,res.getString(3),"Normal","Temp1");
-                ctotal2 = c2positif + c2negatif;
-                cmembership3 = (c2positif / ctotal2) * 100;
-                cmembership4 = (c2negatif / ctotal1) * 100;
-                }else if (res.getString(3) == "Age"){
-                c1positif = hitungc(conn,res.getString(3),"Anak","Temp1");
-                c1negatif = hitungcn(conn,res.getString(3),"Anak","Temp1");
-                ctotal1 = c1positif + c1negatif;
-                cmembership1 = (c1positif / ctotal1) * 100;
-                cmembership2 = (c1negatif / ctotal1) * 100;
-                c2positif = hitungc(conn,res.getString(3),"Muda","Temp1");
-                c2negatif = hitungcn(conn,res.getString(3),"Muda","Temp1");
-                ctotal2 = c2positif + c2negatif;
-                cmembership3 = (c2positif / ctotal2) * 100;
-                cmembership4 = (c2negatif / ctotal1) * 100;
-                c3positif = hitungc(conn,res.getString(3),"Muda","Temp1");
-                c3negatif = hitungcn(conn,res.getString(3),"Muda","Temp1");
-                ctotal = c2positif + c2negatif;
-                cmembership5 = (c3positif / ctotal) * 100;
-                cmembership6 = (c3negatif / ctotal) * 100;
-                }
-                Integer tetar;
-                Menu2 tr = new Menu2();
-                tetar = tr.tetarProses();
-               
-                if(((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
-                if(cmembership3 > cmembership1 || cmembership4 > cmembership2){
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
-                 pst2.execute();
-                System.out.println(sql2);
-                }else{
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
-                pst2.execute();
-                System.out.println(sql2);
-                }
-                }else if (((tetar < cmembership3) || (tetar < cmembership4)) && ((tetar >= cmembership1) || (tetar >= cmembership2))) {
-                    String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 1',' `key` =' Alamine Aminotransferase ' and label='Abnormal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
-                 pst2.execute();
-                System.out.println(sql2);
-                } else if (((tetar >= cmembership3) || (tetar >= cmembership4)) && ((tetar < cmembership1) || (tetar < cmembership2))) {
-                 String sql2 = "Insert into result(type,keytable,`value`,prosespenelitian) values ('Prediksi 2',' `key` =' Alamine Aminotransferase ' and label='Normal'','0.5',"+number+")";
-                 java.sql.PreparedStatement pst2=conn.prepareStatement(sql2);
-                pst2.execute();
-                System.out.println(sql2);
-                }
-             insertDataEntropy(i);
-               }
-                for (i=1;i>9;i++){
-                    System.out.println("asem");
-                }
-                System.exit(0);
-             } 
-             }while (i < 9);
+                memberpos = MemberDataP(i,a,number);
+                if(val1 >= ctetan1) {
+                    
+                    insertDataEntropy(i);
+                    
+                }    
+             }
+            System.exit(0);
           }catch (Exception e) {
         }finally{
             try {
@@ -5876,7 +5767,27 @@ public class Menu2 extends javax.swing.JFrame {
                entropy9();
           }
       }
-      
+      public void insertDataMen(Integer i){
+          if(i==1){
+              insertDataTemp1();
+          }else if (i==2){
+               insertDataTemp2();
+          }else if (i==3){
+               insertDataTemp3();
+          }else if (i==4){
+               insertDataTemp4();
+          }else if (i==5){
+               insertDataTemp5();
+          }else if (i==6){
+               insertDataTemp6();
+          }else if (i==7){
+               insertDataTemp7();
+          }else if (i==8){
+               insertDataTemp8();
+          }else if (i==9){
+               insertDataTemp9();
+          }
+      }
       public void insertDataTemp1(){
          java.sql.Connection conn=(Connection)Koneksi.configDB();
           Integer number;
@@ -5888,7 +5799,6 @@ public class Menu2 extends javax.swing.JFrame {
        try{
            String sql = "select * from result where type = 'Gain 0' and prosespenelitian= "+number+" order by `value` desc limit 1";
            System.out.println(sql);
-           System.exit(0);
            java.sql.Statement stm=conn.createStatement();
             java.sql.ResultSet res=stm.executeQuery(sql);
             while(res.next()){
